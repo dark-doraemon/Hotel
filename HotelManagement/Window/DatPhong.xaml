@@ -1,0 +1,175 @@
+﻿<Window x:Class="GUI.Window.DatPhong"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI.Window"
+        mc:Ignorable="d"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Title="DatPhong" Height="400" Width="600">
+    <Window.Resources>
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
+        <ControlTemplate x:Key="RoundButton" TargetType="{x:Type ButtonBase}">
+            <Border CornerRadius="15" x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                <ContentPresenter x:Name="contentPresenter"  Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="Button.IsDefaulted" Value="true">
+                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
+                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
+                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+    <Border CornerRadius="20" Background="LightBlue">
+        <Border.Resources>
+            <Style TargetType="Ellipse">
+                <Setter Property="Width" Value="20"></Setter>
+                <Setter Property="Height" Value="20"></Setter>
+                <Setter Property="VerticalAlignment" Value="Top"></Setter>
+                <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            </Style>
+        </Border.Resources>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="60"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            
+            <!--thanh kéo--> 
+            <Grid x:Name ="gridHeader" 
+                          Grid.Row="0"
+                          Background="Transparent"
+                          PreviewMouseLeftButtonDown="gridHeader_PreviewMouseLeftButtonDown">
+                <Border CornerRadius="20 20  0 0"
+                        Background="LightGreen"
+                        BorderThickness="0" >
+                    <TextBlock x:Name="txt_TenPhong"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               FontSize="15"></TextBlock>
+                </Border>
+            </Grid>
+            <Ellipse Fill="Red" Margin="0,5,20,0" MouseLeftButtonDown="red_exit" />
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <WrapPanel Grid.Row="0">
+                        <TextBlock Text="Date in" FontSize="20" Margin="0 0 20 0"></TextBlock>
+                        <DatePicker x:Name="dpk_DateIn" SelectedDateChanged="dpk_DateIn_SelectedDateChanged"></DatePicker>
+                    </WrapPanel>
+
+                    <WrapPanel Grid.Row="1">
+                        <TextBlock Text="Date out" FontSize="20"  Margin="0 0 20 0"></TextBlock>
+                        <DatePicker x:Name="dpk_DateOut" SelectedDateChanged="dpk_DateOut_SelectedDateChanged"></DatePicker>
+                    </WrapPanel>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock FontSize="15" FontWeight="Bold" Margin="0 0 5 0">Số ngày thuê: </TextBlock>
+                        <TextBlock x:Name="txb_SoNgay" FontSize="15">Số ngày</TextBlock>
+                    </WrapPanel>
+                </Grid>
+
+
+            </Grid>
+            
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column ="0"  >
+                    <StackPanel
+                                HorizontalAlignment="Center" 
+                                VerticalAlignment="Top">
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Width" Value="250"></Setter>
+                                <Setter Property="Height" Value="30"></Setter>
+                                <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                                <Setter Property="Margin" Value="0 10 0 0"></Setter>
+                                <Setter Property="FontSize" Value="15"></Setter>
+                                <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                            </Style>
+
+                            <Style TargetType="ComboBox">
+                                <Setter Property="FontSize" Value="15"></Setter>
+                                <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                                <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+                                <Setter Property="Width" Value="100"></Setter>
+                            </Style>
+                        </StackPanel.Resources>
+                        <TextBlock>Tên khách hàng</TextBlock>
+                        <TextBox></TextBox>
+
+                        <TextBlock>Địa chỉ</TextBlock>
+                        <TextBox></TextBox>
+
+                        <TextBlock>Giới tính</TextBlock>
+                        <ComboBox >
+                            <ComboBoxItem>Nam</ComboBoxItem>
+                            <ComboBoxItem>Nữ</ComboBoxItem>
+                        </ComboBox>
+
+                        <TextBlock>Số điện thoại</TextBlock>
+                        <TextBox></TextBox>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Grid.Resources>
+                        <Style  TargetType="Button">
+                            <Setter Property="Width" Value="80"></Setter>
+                            <Setter Property="Height" Value="30"></Setter>
+                            <Setter Property="VerticalAlignment" Value="Top"></Setter>
+                            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                            <Setter Property="Margin" Value="20 0  0 0"></Setter>
+                            <Setter Property="Foreground" Value="#fff"></Setter>
+                            <Setter Property="Background" Value="Green"></Setter>
+                        </Style>
+                    </Grid.Resources>
+                    <Button Template="{DynamicResource RoundButton}" Content="Dich vụ" Click="btn_ThemDichVu"></Button>
+                </Grid>
+                
+                
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

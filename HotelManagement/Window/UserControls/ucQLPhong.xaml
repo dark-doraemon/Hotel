@@ -1,0 +1,245 @@
+﻿<UserControl x:Class="GUI.Window.UserControls.ucQLPhong"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GUI.Window.UserControls"
+             mc:Ignorable="d" 
+             Background="Transparent"
+             d:DesignHeight="550" d:DesignWidth="1000">
+    <Border CornerRadius="0 0 20 20"
+            Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <!--<ContentControl Grid.Row="0">
+                <local:ucSearchBar  />
+            </ContentControl>-->
+
+            <!--Thanh search-->
+            <Grid Background="White">
+                <Grid.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                        <Setter Property="Width" Value="300"></Setter>
+                        <Setter Property="Height" Value="30"></Setter>
+                        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                        <Setter Property="Padding" Value="40 0 0 0 "></Setter>
+                    </Style>
+                </Grid.Resources>
+
+
+                <TextBox x:Name="txb_SearchPhong" FontSize="20" TextChanged="txb_Search_TextChanged" >
+
+                    <TextBox.Background>
+                        <ImageBrush ImageSource="/ImgLinhTinh/kinhlup.png"
+                        Stretch="Uniform" AlignmentX="Left">
+                        </ImageBrush>
+                    </TextBox.Background>
+
+                    <TextBox.Resources>
+
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="BorderThickness" Value="1"></Setter>
+                            <Setter Property="BorderBrush" Value="Black"></Setter>
+                            <Setter Property="CornerRadius" Value="5"/>
+                            <Setter Property="BorderThickness" Value="1"></Setter>
+                            <Setter Property="BorderBrush" Value="Black"></Setter>
+                        </Style>
+
+                    </TextBox.Resources>
+
+                    <TextBox.BorderThickness>
+                        <Thickness>2</Thickness>
+                    </TextBox.BorderThickness>
+
+                    <TextBox.BorderBrush>
+                        <SolidColorBrush Color="Black"/>
+                    </TextBox.BorderBrush>
+
+                </TextBox>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <!--trạng thái phòng, loại phòng, dọn dẹp--> 
+                <Border Grid.Column="0" Background="#f1f1ef"
+                        CornerRadius="20 20 20 20 ">
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="Label">
+                                <Setter Property="Foreground" Value="BLue"></Setter>
+                                <Setter Property="FontSize" Value="20"></Setter>
+                                <Setter Property="Margin" Value="10 0 0 0"></Setter>
+                            </Style>
+                            <Style TargetType="RadioButton">
+                                <Setter Property="VerticalAlignment" Value="Top"></Setter>
+                                <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                                <Setter Property="Margin" Value="30 20 0 0"></Setter>
+                            </Style>
+                        </Grid.Resources>
+                        <!--trại thái phòng-->
+                        <StackPanel>
+                            <Label>Trạng thái phòng</Label>
+                            <RadioButton x:Name="chk_PhongTrong" Checked="chk_PhongTrong_Checked" >Phòng trống</RadioButton>
+                            <RadioButton x:Name="chk_PhongDaThue" Checked="chk_PhongDaThue_Checked">Phòng đã thuê</RadioButton>
+                            <RadioButton x:Name="chk_TatCaPhong" Checked="chk_TatCaPhong_Checked">Tất cả phòng</RadioButton>
+                        </StackPanel>
+                        
+                        
+                        <!--loại phòng-->
+                        <StackPanel Margin="0 150 0 0 ">
+                            <Label>Loại phòng</Label>
+                            <RadioButton x:Name="chk_PhongDon" Checked="chk_PhongDon_Checked">Phòng đơn</RadioButton>
+                            <RadioButton x:Name="chk_PhongDoi" Checked="chk_PhongDoi_Checked">Phòng đôi</RadioButton>
+                            <RadioButton x:Name="chk_PhongGiaDinh" Checked="chk_PhongGiaDinh_Checked">Phòng gia đinh</RadioButton>
+                        </StackPanel>
+
+                        <!--Dọn dẹp-->
+                        <StackPanel Margin="0 300 0 0 ">
+                            <Label>Dọn dẹp</Label>
+                            <RadioButton x:Name="chk_DaDonDep" Checked="chk_DaDonDep_Checked">Đã dọn dẹp</RadioButton>
+                            <RadioButton x:Name="chk_ChuaDonDep" Checked="chk_ChuaDonDep_Checked">Chưa dọn dẹp</RadioButton>
+                            <RadioButton x:Name="chk_TatCaDonDep" Checked="chk_TatCaDonDep__Checked">Tất cả</RadioButton>
+                        </StackPanel>
+                    </Grid>
+                    
+                </Border>
+                
+                <!--các loại phòng--> 
+                <ScrollViewer Grid.Column="1">
+                    <ScrollViewer.Resources>
+                        <Style TargetType="Label">
+                            <Setter Property="FontSize" Value="20"></Setter>
+                            <Setter Property="Foreground" Value="Violet"></Setter>
+                        </Style>
+                        <Style TargetType="Button">
+                            <Setter Property="VerticalAlignment" Value="Top"></Setter>
+                            <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                            <Setter Property="Width" Value="150"></Setter>
+                            <Setter Property="Height" Value="100"></Setter>
+                            <Setter Property="BorderBrush" Value="Black"></Setter>
+                            <Setter Property="Margin" Value="20 10 10 10 "></Setter>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border x:Name="btnBorder" 
+                                                    CornerRadius="10" 
+                                                    Background="LightGreen"
+                                                    BorderBrush="Green"
+                                                    BorderThickness="3"></Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ScrollViewer.Resources>
+                    
+                    <StackPanel>
+                        <!--phòng đơn-->
+                        <StackPanel x:Name="spn_PhongDon">
+                            <Label>Phòng đơn</Label>
+                            <ListView x:Name="lsvPhongDon"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                    ScrollViewer.VerticalScrollBarVisibility="Disabled">
+
+                                <ListView.Template>
+                                    <ControlTemplate>
+                                        <ItemsPresenter></ItemsPresenter>
+                                    </ControlTemplate>
+                                </ListView.Template>
+
+                                <!--ItemsPanel là custom cho các Item hiển thị như thế nào -->
+                                <!--Kiểu stackpanel hay wrapanel, hiển thị chiều ngang hay dọc-->
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+
+                                <!--ItemTemplate là custom hình dạng các item-->
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <local:itemPhong></local:itemPhong>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                        
+                        
+                         <!--Phòng đôi-->
+                        <StackPanel x:Name="spn_PhongDoi">
+                            <Label>Phòng đôi</Label>
+                            <ListView x:Name="lsvPhongDoi"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                    ScrollViewer.VerticalScrollBarVisibility="Disabled">
+
+                                <ListView.Template>
+                                    <ControlTemplate>
+                                        <ItemsPresenter></ItemsPresenter>
+                                    </ControlTemplate>
+                                </ListView.Template>
+
+                                <!--ItemsPanel là custom cho các Item hiển thị như thế nào -->
+                                <!--Kiểu stackpanel hay wrapanel, hiển thị chiều ngang hay dọc-->
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+
+                                <!--ItemTemplate là custom hình dạng các item-->
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <local:itemPhong></local:itemPhong>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+
+
+                        <StackPanel x:Name="spn_PhongGiaDinh">
+                            <Label>Phòng gia đình</Label>
+                            <ListView x:Name="lsvPhongGiaDinh"
+                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                                    ScrollViewer.VerticalScrollBarVisibility="Disabled">
+
+                                <ListView.Template>
+                                    <ControlTemplate>
+                                        <ItemsPresenter></ItemsPresenter>
+                                    </ControlTemplate>
+                                </ListView.Template>
+
+                                <!--ItemsPanel là custom cho các Item hiển thị như thế nào -->
+                                <!--Kiểu stackpanel hay wrapanel, hiển thị chiều ngang hay dọc-->
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
+
+                                <!--ItemTemplate là custom hình dạng các item-->
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <local:itemPhong></local:itemPhong>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackPanel>
+                    </StackPanel>                       
+                </ScrollViewer>
+            </Grid>
+            
+        </Grid>
+    </Border>
+</UserControl>

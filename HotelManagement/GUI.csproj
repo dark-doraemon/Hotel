@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Asset\background.jpg" />
+    <None Remove="Asset\hotel1.jpg" />
+    <None Remove="Asset\hotel2.jpg" />
+    <None Remove="Asset\hotel3.jpg" />
+    <None Remove="Asset\hotel4.jpg" />
+    <None Remove="Asset\hotel5.jpg" />
+    <None Remove="Asset\icon.ico" />
+    <None Remove="ImgLinhTinh\imgtaotk.png" />
+    <None Remove="ImgLinhTinh\kinhlup.png" />
+    <None Remove="ImgLinhTinh\menuIcon.png" />
+    <None Remove="ImgLinhTinh\showpass.jpg" />
+    <None Remove="ImgLinhTinh\usericon.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+	<PackageReference Include="Microsoft.Build" Version="17.0.0" ExcludeAssets="runtime" />
+  	<PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.0.0" ExcludeAssets="runtime" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj" />
+    <ProjectReference Include="..\DTO\DTO.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Asset\hotel5.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Asset\hotel2.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Asset\background.jpg" />
+    <Resource Include="Asset\hotel1.jpg" />
+    <Resource Include="Asset\hotel3.jpg" />
+    <Resource Include="Asset\hotel4.jpg" />
+    <Resource Include="Asset\icon.ico" />
+    <Resource Include="ImgLinhTinh\imgtaotk.png" />
+    <Resource Include="ImgLinhTinh\kinhlup.png" />
+    <Resource Include="ImgLinhTinh\menuIcon.png" />
+    <Resource Include="ImgLinhTinh\showpass.jpg" />
+    <Resource Include="ImgLinhTinh\usericon.jpg" />
+  </ItemGroup>
+
+</Project>

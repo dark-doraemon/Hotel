@@ -1,0 +1,27 @@
+D:\linhtinh\code co ban\DTO\bin\Debug\DTO.dll
+D:\linhtinh\code co ban\DTO\bin\Debug\DTO.pdb
+D:\linhtinh\code co ban\DTO\obj\Debug\DTO.csproj.AssemblyReference.cache
+D:\linhtinh\code co ban\DTO\obj\Debug\DTO.csproj.CoreCompileInputs.cache
+D:\linhtinh\code co ban\DTO\obj\Debug\DTO.dll
+D:\linhtinh\code co ban\DTO\obj\Debug\DTO.pdb
+D:\linhtinh\code co ban\DTO\bin\Debug\System.Data.SqlClient.dll
+D:\linhtinh\code co ban\DTO\bin\Debug\System.Data.SqlClient.xml
+D:\linhtinh\code co ban\DTO\obj\Debug\DTO.csproj.CopyComplete
+C:\Users\tuand\Desktop\New folder\HotelManagement\DTO\bin\Debug\DTO.dll
+C:\Users\tuand\Desktop\New folder\HotelManagement\DTO\bin\Debug\DTO.pdb
+C:\Users\tuand\Desktop\New folder\HotelManagement\DTO\bin\Debug\System.Data.SqlClient.dll
+C:\Users\tuand\Desktop\New folder\HotelManagement\DTO\bin\Debug\System.Data.SqlClient.xml
+C:\Users\tuand\Desktop\New folder\HotelManagement\DTO\obj\Debug\DTO.csproj.AssemblyReference.cache
+C:\Users\tuand\Desktop\New folder\HotelManagement\DTO\obj\Debug\DTO.csproj.CoreCompileInputs.cache
+C:\Users\tuand\Desktop\New folder\HotelManagement\DTO\obj\Debug\DTO.csproj.CopyComplete
+C:\Users\tuand\Desktop\New folder\HotelManagement\DTO\obj\Debug\DTO.dll
+C:\Users\tuand\Desktop\New folder\HotelManagement\DTO\obj\Debug\DTO.pdb
+D:\VS\HotelManagement-master\HotelManagement-master\DTO\bin\Debug\DTO.dll
+D:\VS\HotelManagement-master\HotelManagement-master\DTO\bin\Debug\DTO.pdb
+D:\VS\HotelManagement-master\HotelManagement-master\DTO\bin\Debug\System.Data.SqlClient.dll
+D:\VS\HotelManagement-master\HotelManagement-master\DTO\bin\Debug\System.Data.SqlClient.xml
+D:\VS\HotelManagement-master\HotelManagement-master\DTO\obj\Debug\DTO.csproj.AssemblyReference.cache
+D:\VS\HotelManagement-master\HotelManagement-master\DTO\obj\Debug\DTO.csproj.CoreCompileInputs.cache
+D:\VS\HotelManagement-master\HotelManagement-master\DTO\obj\Debug\DTO.csproj.CopyComplete
+D:\VS\HotelManagement-master\HotelManagement-master\DTO\obj\Debug\DTO.dll
+D:\VS\HotelManagement-master\HotelManagement-master\DTO\obj\Debug\DTO.pdb

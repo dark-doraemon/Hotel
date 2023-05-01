@@ -1,0 +1,67 @@
+﻿<Window x:Class="HotelManagement.GUI.CreateAccount"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HotelManagement.GUI"
+        mc:Ignorable="d"
+        Title="Tạo tài khoản" Height="460" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid Height="460" Width="500">
+        <!--<Grid.Background>
+            <ImageBrush ImageSource="/ImgLinhTinh/imgtaotk.png"></ImageBrush>
+        </Grid.Background>-->
+        <StackPanel Height="460" Width="500" >
+            <StackPanel.Resources>
+                <!--style cho label-->
+                <Style TargetType="Label">
+                    <Setter Property="VerticalAlignment" Value="Top"></Setter>
+                    <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                    <Setter Property="Foreground" Value="DarkCyan"></Setter>
+                    <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                    <Setter Property="VerticalAlignment" Value="Top"></Setter>
+                    <Setter Property="Margin" Value="130 0 0 0"></Setter>
+                </Style>
+                
+                <!--sytle cho textbox-->
+                <Style TargetType="TextBox">
+                    <Setter Property="Width" Value="250"></Setter>
+                    <Setter Property="Height" Value="30"></Setter>
+                    <Setter Property="VerticalAlignment" Value="Top"></Setter>
+                    <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                    <Setter Property="FontSize" Value="20"></Setter>
+                    <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                    <Setter Property="VerticalAlignment" Value="Top"></Setter>
+                    <Setter Property="Margin" Value="130 0 0 10"></Setter>
+                </Style>
+            </StackPanel.Resources>
+            
+            <!--Tên hiển thị-->
+            <Label >Tên hiển thị</Label>
+            <TextBox x:Name="txt_TenHienThi_ttk" MaxLength="50" ></TextBox>
+
+            <!--số điện thoại-->
+            <Label >Số điện thoại</Label>
+            <TextBox x:Name="txt_SDT_ttk"  MaxLength="10"></TextBox>
+
+            <!--tài khoản-->
+            <Label>Tài khoản</Label>
+            <TextBox x:Name="txt_TenDangNhap_ttk" MaxLength="20"></TextBox>
+
+            <!--mật khẩu-->
+            <Label >Mật khẩu</Label>
+            <TextBox x:Name="txt_MatKhau_ttk" MaxLength="20"></TextBox>
+
+            <!--xác nhận mật khẩu-->
+            <Label>Xác nhận mật khẩu</Label>
+            <TextBox x:Name="txt_XacNhanMatKhau_ttk" MaxLength="20"></TextBox>
+            
+           
+        </StackPanel>
+        <!--nút tạo tài khoản-->
+        <Button x:Name="btn_TaoTaiKhoan" Width="200"
+                Height="50"
+                HorizontalAlignment="Center" Margin="0,350,0,38" Click="btn_TaoTaiKhoan_Click">Đăng kí</Button>
+
+
+    </Grid>
+</Window>
