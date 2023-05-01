@@ -13,7 +13,6 @@ namespace HotelManagement.GUI
         {
             InitializeComponent();
         }
-
         private void btn_TaoTaiKhoan_Click(object sender, RoutedEventArgs e)
         {
             string tenhienthi = txt_TenHienThi_ttk.Text;

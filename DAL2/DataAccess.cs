@@ -30,7 +30,7 @@ namespace DAL
         #region kiểm tra login
         public static string CheckLoginFinalDAL(TaiKhoan tk)
         {
-            string user = null; // kết quả sao khi thực hiện xong trả vền tên của nhân viên
+            string user = null; // kết quả sao khi thực hiện xong trả về tên của nhân viên
 
             SqlConnection sqlConn = SqlConnectionData.Connect();
             if(sqlConn.State == System.Data.ConnectionState.Closed)
