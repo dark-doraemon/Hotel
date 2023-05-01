@@ -31,3 +31,14 @@ D:\VS\HotelManagement-master\HotelManagement-master\DAL2\obj\Debug\DAL.csproj.Co
 D:\VS\HotelManagement-master\HotelManagement-master\DAL2\obj\Debug\DAL.csproj.CopyComplete
 D:\VS\HotelManagement-master\HotelManagement-master\DAL2\obj\Debug\DAL.dll
 D:\VS\HotelManagement-master\HotelManagement-master\DAL2\obj\Debug\DAL.pdb
+C:\Users\tuand\Desktop\New folder\Hotel\DAL2\bin\Debug\DAL.dll
+C:\Users\tuand\Desktop\New folder\Hotel\DAL2\bin\Debug\DAL.pdb
+C:\Users\tuand\Desktop\New folder\Hotel\DAL2\bin\Debug\DTO.dll
+C:\Users\tuand\Desktop\New folder\Hotel\DAL2\bin\Debug\System.Data.SqlClient.dll
+C:\Users\tuand\Desktop\New folder\Hotel\DAL2\bin\Debug\DTO.pdb
+C:\Users\tuand\Desktop\New folder\Hotel\DAL2\bin\Debug\System.Data.SqlClient.xml
+C:\Users\tuand\Desktop\New folder\Hotel\DAL2\obj\Debug\DAL.csproj.AssemblyReference.cache
+C:\Users\tuand\Desktop\New folder\Hotel\DAL2\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+C:\Users\tuand\Desktop\New folder\Hotel\DAL2\obj\Debug\DAL.csproj.CopyComplete
+C:\Users\tuand\Desktop\New folder\Hotel\DAL2\obj\Debug\DAL.dll
+C:\Users\tuand\Desktop\New folder\Hotel\DAL2\obj\Debug\DAL.pdb

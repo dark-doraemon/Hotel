@@ -49,7 +49,7 @@
             </Grid>
             
             <Grid Grid.Row="2">
-                <TextBlock Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding GiaPhong}"></TextBlock>
+                <TextBlock x:Name="txb_GiaPhong" Margin="10 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Text="{Binding GiaPhong ,StringFormat={}{0:N0}}"></TextBlock>
                 <TextBlock Margin="0 0 10 0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Text="{Binding DonDep}"></TextBlock>
             </Grid>
         </Grid>

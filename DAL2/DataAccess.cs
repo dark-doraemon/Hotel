@@ -16,7 +16,7 @@ namespace DAL
         //Tạo hàm kết nối tới CSDL để tái sử dụng
         public static SqlConnection Connect()
         {
-            string strConn = @"Data Source=DESKTOP-49HU124;Initial Catalog=DB_QuanLyKhachSan;Integrated Security=True";
+            string strConn = @"Data Source=DESKTOP-TUSR6QB;Initial Catalog=DB_QuanLyKhachSan;Integrated Security=True";
             SqlConnection sqlConn = new SqlConnection(strConn);
             return sqlConn;
         }

@@ -31,6 +31,7 @@ namespace GUI.Window.UserControls
         private void Room_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DatPhong windowdatphong = new DatPhong();
+            windowdatphong.txb_TienPhong.Text = txb_GiaPhong.Text;
             windowdatphong.txt_TenPhong.Text = txb_NameRoom.Text;
             windowdatphong.ShowDialog();
         }
