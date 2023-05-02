@@ -79,11 +79,11 @@ namespace HotelManagement.GUI
 
         }
         #endregion
-
-
-        public MainUI()
+        public static string manvgui = "";
+        public MainUI(string manv)
         {
             InitializeComponent();
+            manvgui=manv;
             GetBackgoundImg();
         }
 

@@ -67,8 +67,8 @@ namespace HotelManagement
 
 
             //nếu đúng
-            GUI.MainUI mainUI = new GUI.MainUI();
-            mainUI.lbl_TenHienThi.Content = getUser;
+            GUI.MainUI mainUI = new GUI.MainUI(getUser.Split('|')[1]);
+            mainUI.lbl_TenHienThi.Content = getUser.Split('|')[0];
             mainUI.Show();//Màn hình gọi nó vẫn sử đụng được
             //mainUI.ShowDialog();//màn hình gọi nó không sử đụng được
 

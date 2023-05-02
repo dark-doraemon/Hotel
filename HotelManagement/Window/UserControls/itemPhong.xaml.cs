@@ -30,7 +30,7 @@ namespace GUI.Window.UserControls
         #region sự kiện mỗi khi bấm vào phòng
         private void Room_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            DatPhong windowdatphong = new DatPhong();
+            DatPhong windowdatphong = new DatPhong(txb_MaPhong.Text,txb_NameRoom.Text);
             windowdatphong.txb_TienPhong.Text = txb_GiaPhong.Text;
             windowdatphong.txt_TenPhong.Text = txb_NameRoom.Text;
             windowdatphong.ShowDialog();

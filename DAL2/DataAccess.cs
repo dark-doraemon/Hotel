@@ -16,13 +16,12 @@ namespace DAL
         //Tạo hàm kết nối tới CSDL để tái sử dụng
         public static SqlConnection Connect()
         {
-            string strConn = @"Data Source=DESKTOP-TUSR6QB;Initial Catalog=DB_QuanLyKhachSan;Integrated Security=True";
+            string strConn = @"Data Source=DESKTOP-49HU124;Initial Catalog=DB_QuanLyKhachSan;Integrated Security=True";
             SqlConnection sqlConn = new SqlConnection(strConn);
             return sqlConn;
         }
+        #endregion
     }
-    #endregion
-
 
     //Class kiểm tra trong Database (bước cuối cùng)
     public class DataAccess
@@ -47,7 +46,7 @@ namespace DAL
             @pass varchar(20)
             as
             begin
-	            select NV.TenNhanVien
+	            select NV.TenNhanVien,NV.MaNV
 	            from Tai_Khoan TK join Nhan_Vien NV on TK.MaNV = NV.MaNV
 	            where TK.username = @user and TK.password = @pass
 
@@ -63,7 +62,7 @@ namespace DAL
             {
                 while( reader.Read())
                 {
-                    user = reader.GetString(0);
+                    user = reader.GetString(0) + "|" +  reader.GetString(1);
                     return user;
                 }
                 reader.Close();
@@ -192,6 +191,8 @@ namespace DAL
             reader.Close();
         }
         #endregion
+
+        #region load khách hàng
         public static void LoadKhachHangToList(ref List<KhachHang> khachhang)
         {
             SqlConnection sqlConn = SqlConnectionData.Connect();
@@ -214,7 +215,7 @@ namespace DAL
                 khachhang.Add(new KhachHang(makh,tenkh,diachi,gioitinh,sdtkhachhang));
             }
             reader.Close();
-
         }
+        #endregion
     }
 }

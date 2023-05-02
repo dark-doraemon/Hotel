@@ -137,19 +137,19 @@
                             </Style>
                         </StackPanel.Resources>
                         <TextBlock>Tên khách hàng</TextBlock>
-                        <TextBox></TextBox>
+                        <TextBox x:Name="txt_TenKhachHang"></TextBox>
 
                         <TextBlock>Địa chỉ</TextBlock>
-                        <TextBox></TextBox>
+                        <TextBox x:Name="txt_DiaChi"></TextBox>
 
                         <TextBlock>Giới tính</TextBlock>
-                        <ComboBox >
-                            <ComboBoxItem>Nam</ComboBoxItem>
-                            <ComboBoxItem>Nữ</ComboBoxItem>
+                        <ComboBox x:Name="cbo_GioiTinh">
+                            <ComboBoxItem x:Name="cboi_Nam">Nam</ComboBoxItem>
+                            <ComboBoxItem x:Name="cboi_Nu">Nữ</ComboBoxItem>
                         </ComboBox>
 
                         <TextBlock>Số điện thoại</TextBlock>
-                        <TextBox></TextBox>
+                        <TextBox x:Name="txt_SDT" ></TextBox>
                     </StackPanel>
                 </Grid>
 

@@ -1,4 +1,6 @@
-﻿using DTO;
+﻿using BLL;
+using DTO;
+using HotelManagement.GUI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,9 +26,13 @@ namespace GUI.Window
 
         //chứ kết quả khi thêm dịch vụ
         public List<DanhSachDichVu> result = new List<DanhSachDichVu> ();
-        public DatPhong()
+        public string g_sophong = "";
+        public string g_maphong = "";
+        public DatPhong(string maphong,string sophong)
         {
             InitializeComponent();
+            g_sophong= maphong;
+            g_maphong= sophong;
         }
         #region nút thoát
         private void red_exit(object sender, MouseButtonEventArgs e)
@@ -120,6 +126,29 @@ namespace GUI.Window
 
         private void btn_HoanTat_Click(object sender, RoutedEventArgs e)
         {
+            DateTime datein = dpk_DateIn.DisplayDate;
+            DateTime dateout = dpk_DateOut.DisplayDate;
+
+            string tenkhachhang = txt_TenKhachHang.Text;
+            string diachi = txt_DiaChi.Text;
+            try
+            {
+                string? gioitinh = ((ComboBoxItem)cbo_GioiTinh.SelectedItem).Content.ToString();
+            }
+            catch(Exception)
+            {
+                MessageBox.Show("Bạn chưa chọn giới tính");
+            }
+            string sdt = txt_SDT.Text;
+            string manv = MainUI.manvgui;
+            string sophong = g_sophong;
+            string maphong = g_maphong;
+
+            ChiTietDatPhong chitiet = new ChiTietDatPhong("",maphong,"","",sophong,datein,dateout);
+
+            KhachDangKiPhongBLL dangkibll = new KhachDangKiPhongBLL();
+            dangkibll.CheckKhachDangKiPhongBLL(chitiet);
+
             this.Close();
         }
     }

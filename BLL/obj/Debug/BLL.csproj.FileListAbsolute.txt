@@ -50,3 +50,16 @@ C:\Users\tuand\Desktop\New folder\Hotel\BLL\obj\Debug\BLL.csproj.CoreCompileInpu
 C:\Users\tuand\Desktop\New folder\Hotel\BLL\obj\Debug\BLL.csproj.CopyComplete
 C:\Users\tuand\Desktop\New folder\Hotel\BLL\obj\Debug\BLL.dll
 C:\Users\tuand\Desktop\New folder\Hotel\BLL\obj\Debug\BLL.pdb
+C:\Users\tuand\Desktop\New folder (2)\Hotel\BLL\bin\Debug\BLL.dll
+C:\Users\tuand\Desktop\New folder (2)\Hotel\BLL\bin\Debug\BLL.pdb
+C:\Users\tuand\Desktop\New folder (2)\Hotel\BLL\bin\Debug\DAL.dll
+C:\Users\tuand\Desktop\New folder (2)\Hotel\BLL\bin\Debug\DTO.dll
+C:\Users\tuand\Desktop\New folder (2)\Hotel\BLL\bin\Debug\System.Data.SqlClient.dll
+C:\Users\tuand\Desktop\New folder (2)\Hotel\BLL\bin\Debug\DAL.pdb
+C:\Users\tuand\Desktop\New folder (2)\Hotel\BLL\bin\Debug\DTO.pdb
+C:\Users\tuand\Desktop\New folder (2)\Hotel\BLL\bin\Debug\System.Data.SqlClient.xml
+C:\Users\tuand\Desktop\New folder (2)\Hotel\BLL\obj\Debug\BLL.csproj.AssemblyReference.cache
+C:\Users\tuand\Desktop\New folder (2)\Hotel\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
+C:\Users\tuand\Desktop\New folder (2)\Hotel\BLL\obj\Debug\BLL.csproj.CopyComplete
+C:\Users\tuand\Desktop\New folder (2)\Hotel\BLL\obj\Debug\BLL.dll
+C:\Users\tuand\Desktop\New folder (2)\Hotel\BLL\obj\Debug\BLL.pdb

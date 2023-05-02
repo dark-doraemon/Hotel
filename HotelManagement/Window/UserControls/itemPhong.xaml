@@ -40,6 +40,7 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
+                <TextBlock x:Name="txb_MaPhong" Visibility="Collapsed" Text="{Binding MaPhong}"></TextBlock>
                 <TextBlock x:Name="txb_NameRoom" Margin="10 0 0 0" Text="{Binding TenPhong}"></TextBlock>
                 <TextBlock  x:Name="txb_TrangThaiPhong" Margin="0 0 10 0" Grid.Column="1" HorizontalAlignment="Right" Text="{Binding TrangThaiPhong}"></TextBlock>
             </Grid>

@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CreateAccountBLL.cs" />
+    <Compile Include="KhachDangKiPhongBLL.cs" />
     <Compile Include="LoadKhachHangBLL.cs" />
     <Compile Include="LoadRoomBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
