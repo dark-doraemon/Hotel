@@ -75,12 +75,6 @@ namespace GUI.Window.UserControls
         }
         #endregion
 
-        #region phòng bấm vào để đặt phòng
-        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            MessageBox.Show("xin chao");
-        }
-        #endregion
 
         #region Lọc phòng đơn
         private void chk_PhongDon_Checked(object sender, RoutedEventArgs e)
@@ -202,7 +196,12 @@ namespace GUI.Window.UserControls
             lsvPhongDoi.ItemsSource = phongdoi;
             lsvPhongGiaDinh.ItemsSource = phonggiadinh;
         }
+
+
+
         #endregion
+
+        
     }
 
 }

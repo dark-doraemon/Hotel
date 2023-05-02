@@ -63,7 +63,6 @@ namespace GUI.Window.UserControls
 
         private void btn_xoaKhachHang(object sender, RoutedEventArgs e)
         {
-
             Button btn = (Button)sender;
             string maKH = btn.DataContext.ToString();
 

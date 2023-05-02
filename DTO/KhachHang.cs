@@ -16,7 +16,7 @@ namespace DTO
 
         public KhachHang() { }
 
-        public KhachHang(string makh,string tenkh,string diachi,string gioitinh,string sdtkhachhang)
+        public KhachHang(string makh = "",string tenkh ="",string diachi ="",string gioitinh = "",string sdtkhachhang = "")
         {
             this.MaKH = makh;
             this.TenKH = tenkh; 

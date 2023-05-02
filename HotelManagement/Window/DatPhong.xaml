@@ -137,10 +137,10 @@
                             </Style>
                         </StackPanel.Resources>
                         <TextBlock>Tên khách hàng</TextBlock>
-                        <TextBox x:Name="txt_TenKhachHang"></TextBox>
+                        <TextBox MaxLength="50" x:Name="txt_TenKhachHang"></TextBox>
 
                         <TextBlock>Địa chỉ</TextBlock>
-                        <TextBox x:Name="txt_DiaChi"></TextBox>
+                        <TextBox MaxLength="100" x:Name="txt_DiaChi"></TextBox>
 
                         <TextBlock>Giới tính</TextBlock>
                         <ComboBox x:Name="cbo_GioiTinh">
@@ -149,7 +149,7 @@
                         </ComboBox>
 
                         <TextBlock>Số điện thoại</TextBlock>
-                        <TextBox x:Name="txt_SDT" ></TextBox>
+                        <TextBox MaxLength="10" x:Name="txt_SDT" ></TextBox>
                     </StackPanel>
                 </Grid>
 

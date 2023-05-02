@@ -16,12 +16,34 @@ namespace DAL
         //Tạo hàm kết nối tới CSDL để tái sử dụng
         public static SqlConnection Connect()
         {
-            string strConn = @"Data Source=DESKTOP-49HU124;Initial Catalog=DB_QuanLyKhachSan;Integrated Security=True";
+            string pcname = System.Environment.MachineName;
+            string strConn = @"Data Source=" + pcname + ";Initial Catalog=DB_QuanLyKhachSan;Integrated Security=True";
             SqlConnection sqlConn = new SqlConnection(strConn);
             return sqlConn;
         }
-        #endregion
     }
+    #endregion
+
+    #region lấy index cuối
+    public class GetLastIndex
+    {
+        public static string MakeCode(SqlCommand lastindex,string MaCanTao)
+        {
+            string Ma = "";
+            
+                int last = (int)lastindex.ExecuteScalar();
+                last += 1;
+                Ma = last.ToString();
+                while (Ma.Length < 4)
+                {
+                    Ma = "0" + Ma;
+                }
+                Ma = MaCanTao + Ma;
+                return Ma;
+           
+        }
+    }
+    #endregion
 
     //Class kiểm tra trong Database (bước cuối cùng)
     public class DataAccess
@@ -105,14 +127,9 @@ namespace DAL
 
 
             //nhận kết quả index cuối của trong database nv để tạo id 
-            int last = (int)getlastMaNV.ExecuteScalar();
-            last += 1;
-            string MaNV = last.ToString();
-            while (MaNV.Length < 4)
-            {
-                MaNV = "0" + MaNV;
-            }
-            MaNV = "NV" + MaNV;
+
+            string MaNV = GetLastIndex.MakeCode(getlastMaNV, "NV");
+            
 
 
             //Đầu tiên là insert Nhân viên trước
@@ -192,6 +209,42 @@ namespace DAL
         }
         #endregion
 
+        #region insertKhachHang
+        public static void  insertKhachHang( ref KhachHang Kh)
+        {
+
+            //tạo kết nối tới CSDL
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == ConnectionState.Open) { sqlConn.Close(); }
+            else { sqlConn.Open(); }
+            
+            //Lấy index cuôi của mã kh để tạo mã KH
+            SqlCommand getlastindexmakh = new SqlCommand();
+            getlastindexmakh.Connection = sqlConn;
+            getlastindexmakh.CommandType = CommandType.Text;
+            getlastindexmakh.CommandText = "select dbo.getLastIndexOfMaKH()";
+            string MaKH = GetLastIndex.MakeCode(getlastindexmakh,"KH");
+            Kh.MaKH = MaKH;
+
+
+            //insert Khách hàng vào trong CSDL
+            SqlCommand insertKhachHang = new SqlCommand();
+            insertKhachHang.CommandType = CommandType.StoredProcedure;
+            insertKhachHang.Connection = sqlConn;
+            insertKhachHang.CommandText = "proc_insertKhachHang";
+
+            insertKhachHang.Parameters.AddWithValue("@makh", Kh.MaKH);
+            insertKhachHang.Parameters.AddWithValue("@tenkh", Kh.TenKH);
+            insertKhachHang.Parameters.AddWithValue("@diachi", Kh.DiaChi);
+            insertKhachHang.Parameters.AddWithValue("@gioitinh", Kh.GioiTinh);
+            insertKhachHang.Parameters.AddWithValue("@sdtkhachhang", Kh.SDTKhachHang);
+
+            insertKhachHang.ExecuteNonQuery();
+
+        }
+
+        #endregion
+
         #region load khách hàng
         public static void LoadKhachHangToList(ref List<KhachHang> khachhang)
         {
@@ -217,5 +270,98 @@ namespace DAL
             reader.Close();
         }
         #endregion
+
+        #region chi tiet dat phong
+        public static string insertChiTietDatPhong(ChiTietDatPhong chiTietDatPhong,KhachHang KH,List<DichVu> dichvu)
+        {
+            #region muốn insert chi tiết đặt phòng đầu tiền ta phải insert khách hàng
+            insertKhachHang(ref KH);
+            #endregion
+
+            #region sau đó insert Dich Vụ
+            insertDichVu(dichvu);
+            #endregion
+
+            //tạo kết nối tới CSDL
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == ConnectionState.Closed) { sqlConn.Open(); }
+
+            //lấy index cuối của bảng chi tiết đặt phòng
+            SqlCommand getlastindexchitietdatphong = new SqlCommand();
+            getlastindexchitietdatphong.Connection = sqlConn;
+            getlastindexchitietdatphong.CommandType = CommandType.Text;
+            getlastindexchitietdatphong.CommandText = "select dbo.getLastIndexOfMaChiTietDatPhong()";
+            string MaDatPhong = GetLastIndex.MakeCode(getlastindexchitietdatphong, "MDP");
+            chiTietDatPhong.MaDatPhong = MaDatPhong;
+
+            //insert vào chi tiết đặt phòng
+            SqlCommand insertChiTietDatPhong = new SqlCommand();
+            insertChiTietDatPhong.CommandType = CommandType.StoredProcedure;
+            insertChiTietDatPhong.Connection = sqlConn;
+            insertChiTietDatPhong.CommandText = "proc_insertChiTietDatPHong";
+
+            insertChiTietDatPhong.Parameters.AddWithValue("@madatphong", MaDatPhong);
+            insertChiTietDatPhong.Parameters.AddWithValue("@maphong", chiTietDatPhong.MaPhong);
+            insertChiTietDatPhong.Parameters.AddWithValue("@makh",KH.MaKH);
+            insertChiTietDatPhong.Parameters.AddWithValue("@sophong", chiTietDatPhong.SoPhong);
+            insertChiTietDatPhong.Parameters.AddWithValue("@datein", chiTietDatPhong.DateIn);
+            insertChiTietDatPhong.Parameters.AddWithValue("@dateout", chiTietDatPhong.DateOut);
+            insertChiTietDatPhong.Parameters.AddWithValue("@manv", chiTietDatPhong.MaNV);
+            insertChiTietDatPhong.ExecuteNonQuery();
+
+            //sao khi đặt phòng xong thì trạng thái phòng chuyển sang trạng thái đã đặt
+            SqlCommand updateTrangThaiPhong = new SqlCommand();
+            updateTrangThaiPhong.CommandType = CommandType.Text;
+            updateTrangThaiPhong.CommandText = "update Phong set TrangThaiPhong = N'Đã thuê' where MaPhong = '"+ chiTietDatPhong.MaPhong + "' ";
+            updateTrangThaiPhong.Connection = sqlConn;
+
+            updateTrangThaiPhong.ExecuteNonQuery();
+            return "success";
+        }
+        #endregion
+
+        #region insert DichVu
+        public static void insertDichVu(List<DichVu> dv)
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == ConnectionState.Closed) { sqlConn.Open(); }
+            
+            foreach(var d in dv)
+            {
+                //lấy index cuối của mã dịch vụ để làm mã dv
+                using (SqlCommand getlastindexmadv = new SqlCommand())
+                {
+                    getlastindexmadv.Connection = sqlConn;
+                    getlastindexmadv.CommandType = CommandType.Text;
+                    getlastindexmadv.CommandText = "select dbo.getLastIndexOfMaDichVu()";
+                    string MaDV = GetLastIndex.MakeCode(getlastindexmadv, "DV");
+                    d.MaDichVu = MaDV;
+                }
+
+                using (SqlCommand insertDV = new SqlCommand())
+                {
+                    insertDV.CommandType = CommandType.StoredProcedure;
+                    insertDV.Connection = sqlConn;
+                    insertDV.CommandText = "proc_insertDichVu";
+
+                    insertDV.Parameters.AddWithValue("@madichvu", d.MaDichVu);
+                    insertDV.Parameters.AddWithValue("@tendichvu", d.TenDichVu);
+                    insertDV.Parameters.AddWithValue("@soluong", d.SoLuong);
+                    insertDV.Parameters.AddWithValue("@giadichvu", d.GiaDichVu);
+
+                    insertDV.ExecuteNonQuery();
+
+                }
+            }
+
+        }
+        #endregion
+
+        #region insert DatPhongDichVi
+        public static void insertDatPhongDichVu()
+        {
+
+        }
+        #endregion 
     }
 }

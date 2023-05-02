@@ -190,7 +190,8 @@
                 </Border>
 
                 <!--các loại phòng-->
-                <ScrollViewer Grid.Column="1">
+                <ScrollViewer Grid.Column="1"
+                              VerticalScrollBarVisibility ="Hidden">
                     <ScrollViewer.Resources>
                         <Style TargetType="Label">
                             <Setter Property="FontSize" Value="20"></Setter>
@@ -243,7 +244,7 @@
                                 <!--ItemTemplate là custom hình dạng các item-->
                                 <ListView.ItemTemplate>
                                     <DataTemplate>
-                                        <local:itemPhong></local:itemPhong>
+                                        <local:itemPhong ></local:itemPhong>
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>

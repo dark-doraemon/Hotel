@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="ChiTietDatPhong.cs" />
     <Compile Include="DanhSachDichVu.cs" />
+    <Compile Include="DichVu.cs" />
     <Compile Include="KhachHang.cs" />
     <Compile Include="NhanVien.cs" />
     <Compile Include="Phong.cs" />

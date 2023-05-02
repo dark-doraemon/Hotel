@@ -1,5 +1,6 @@
 ﻿using BLL;
 using DTO;
+using GUI.Window.UserControls;
 using HotelManagement.GUI;
 using System;
 using System.Collections.Generic;
@@ -24,15 +25,18 @@ namespace GUI.Window
     public partial class DatPhong : System.Windows.Window
     {
 
-        //chứ kết quả khi thêm dịch vụ
-        public List<DanhSachDichVu> result = new List<DanhSachDichVu> ();
+        //chứa kết quả khi thêm dịch vụ
+        public List<DanhSachDichVu> resultDV = new List<DanhSachDichVu> ();
         public string g_sophong = "";
         public string g_maphong = "";
+
+       
         public DatPhong(string maphong,string sophong)
         {
             InitializeComponent();
-            g_sophong= maphong;
-            g_maphong= sophong;
+            g_sophong= sophong;
+            g_maphong= maphong;
+            
         }
         #region nút thoát
         private void red_exit(object sender, MouseButtonEventArgs e)
@@ -96,7 +100,7 @@ namespace GUI.Window
         #region nút thêm dịch vụ
         private void btn_ThemDichVu(object sender, RoutedEventArgs e)
         {
-            ThemDichVu themdichvu = new ThemDichVu(ref result);
+            ThemDichVu themdichvu = new ThemDichVu(ref resultDV);
             themdichvu.ShowDialog();
         }
         #endregion
@@ -105,11 +109,11 @@ namespace GUI.Window
         private void btn_Refresh_Click(object sender, RoutedEventArgs e)
         {
             //Tiền đặt phòng
-            dtg_DatPhongDichVu.ItemsSource = result;
+            dtg_DatPhongDichVu.ItemsSource = resultDV;
 
             //Tiền dịch vụ
             int sumdichvu = 0;
-            result.ForEach(i => sumdichvu += i.ThanhTien);
+            resultDV.ForEach(i => sumdichvu += i.ThanhTien);
             string strtiendv = String.Format("{0:n0}", sumdichvu);
             txb_TienDichVu.Text = strtiendv;
 
@@ -123,33 +127,58 @@ namespace GUI.Window
         }
         #endregion
 
-
         private void btn_HoanTat_Click(object sender, RoutedEventArgs e)
         {
-            DateTime datein = dpk_DateIn.DisplayDate;
-            DateTime dateout = dpk_DateOut.DisplayDate;
-
+            DateTime? datein = dpk_DateIn.SelectedDate;
+            DateTime? dateout = dpk_DateOut.SelectedDate;
             string tenkhachhang = txt_TenKhachHang.Text;
             string diachi = txt_DiaChi.Text;
-            try
-            {
-                string? gioitinh = ((ComboBoxItem)cbo_GioiTinh.SelectedItem).Content.ToString();
-            }
-            catch(Exception)
+            string? gioitinh = "";
+            if (cbo_GioiTinh.SelectedItem == null)
             {
                 MessageBox.Show("Bạn chưa chọn giới tính");
+            }
+            else
+            {
+                gioitinh = ((ComboBoxItem)cbo_GioiTinh.SelectedItem).Content.ToString();
             }
             string sdt = txt_SDT.Text;
             string manv = MainUI.manvgui;
             string sophong = g_sophong;
             string maphong = g_maphong;
 
-            ChiTietDatPhong chitiet = new ChiTietDatPhong("",maphong,"","",sophong,datein,dateout);
+            ChiTietDatPhong chitiet = new ChiTietDatPhong("", maphong, "", sophong, datein, dateout, manv);
+            KhachHang Kh = new KhachHang("", tenkhachhang, diachi, gioitinh, sdt);
 
-            KhachDangKiPhongBLL dangkibll = new KhachDangKiPhongBLL();
-            dangkibll.CheckKhachDangKiPhongBLL(chitiet);
+            //Truyền dữ liệu xuống BLL để check rồi từ BLL xuống DAL để thêm vào CSDL
+            KhachDangKiPhongBLL dangkiphongBLL = new KhachDangKiPhongBLL();
 
-            this.Close();
+            List<DichVu> LayDuLieuDV = new List<DichVu>();
+            for (int i = 0; i < resultDV.Count; i++)
+            {
+                DichVu dv = new DichVu("",
+                                        resultDV[i].TenDichVu,
+                                        resultDV[i].SoLuong, 
+                                        resultDV[i].ThanhTien);
+
+                LayDuLieuDV.Add(dv);
+            }
+            string result = dangkiphongBLL.CheckKhachDangKiPhongBLL(chitiet, Kh, LayDuLieuDV);
+
+            if (result == "code_date_in") MessageBox.Show("Date in không được để trống");
+            else if (result == "code_date_out") MessageBox.Show("Date out không được để trống");
+            else if (result == "code_ten_KH") MessageBox.Show("Tên khách hàng không được để trống");
+            else if (result == "code_diachi_KH") MessageBox.Show("Địa chỉ KH không được để trống");
+            else if (result == "code_SDT_KH") MessageBox.Show("SĐT KH không được để trống");
+            else if (result == "code_date_in") MessageBox.Show("Date in không được để trống");
+            else
+            {
+                this.Close();
+            }
+
+
+
+
         }
     }
 }
