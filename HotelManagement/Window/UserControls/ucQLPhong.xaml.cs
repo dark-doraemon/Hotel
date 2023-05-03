@@ -1,6 +1,7 @@
 ﻿using BLL;
 using DTO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -25,27 +26,30 @@ namespace GUI.Window.UserControls
     public partial class ucQLPhong : UserControl
     {
 
-        
-        List<Phong> phongdon = new List<Phong>();
-        List<Phong> phongdoi = new List<Phong>();
-        List<Phong> phonggiadinh = new List<Phong>();
-        public ucQLPhong()
+        ObservableCollection<Phong> phongdon = new ObservableCollection<Phong>();
+        ObservableCollection<Phong> phongdoi = new ObservableCollection<Phong>();
+        ObservableCollection<Phong> phonggiadinh = new ObservableCollection<Phong>();
+        public  void SetListViewSource(ObservableCollection<Phong> phongdon, ObservableCollection<Phong> phongdoi, ObservableCollection<Phong> phonggiadinh)
+        {
+            lsvPhongDon.ItemsSource = phongdon;
+            lsvPhongDoi.ItemsSource = phongdoi;
+            lsvPhongGiaDinh.ItemsSource = phonggiadinh;
+        }
+        public  ucQLPhong()
         {
             InitializeComponent();
 
             //Truyền xuống BLL
             LoadRoomBLL load = new LoadRoomBLL();
             load.CheckLoadRoomBLL(ref phongdon,ref phongdoi,ref phonggiadinh);
-           
-            lsvPhongDon.ItemsSource = phongdon;
-            lsvPhongDoi.ItemsSource = phongdoi;
-            lsvPhongGiaDinh.ItemsSource = phonggiadinh;
+            SetListViewSource(phongdon,phongdoi,phonggiadinh);  
+
 
             //CollectionView cung cấp các tính năng như filter, sắp xếp,...
             //CollectionView lây dữ liệu từ CollectionViewSource(<.ItemsSource>)
-            CollectionView filterPhongDon = (CollectionView)CollectionViewSource.GetDefaultView(lsvPhongDon.ItemsSource);
-            CollectionView filterPhongDoi = (CollectionView)CollectionViewSource.GetDefaultView(lsvPhongDoi.ItemsSource);
-            CollectionView filterPhongGiaDinh = (CollectionView)CollectionViewSource.GetDefaultView(lsvPhongGiaDinh.ItemsSource);
+            CollectionView filterPhongDon = (CollectionView)CollectionViewSource.GetDefaultView(phongdon);
+            CollectionView filterPhongDoi = (CollectionView)CollectionViewSource.GetDefaultView(phongdoi);
+            CollectionView filterPhongGiaDinh = (CollectionView)CollectionViewSource.GetDefaultView(phonggiadinh);
 
             //mực đích sử dụng là filter, Filter bằng
             filterPhongDon.Filter = PhongFilter;

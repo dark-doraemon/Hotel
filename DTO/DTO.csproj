@@ -52,6 +52,7 @@
     <Compile Include="Phong.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TaiKhoan.cs" />
+    <Compile Include="ThongTinCuaPhong.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

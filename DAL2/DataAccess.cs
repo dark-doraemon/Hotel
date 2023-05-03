@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Data;
 using DTO;
 using System.Diagnostics;
+using System.Collections.ObjectModel;
 
 namespace DAL
 {
@@ -178,7 +179,7 @@ namespace DAL
 
         #region load dữ liệu phòng
 
-        public static void LoadRoomToList(ref List<Phong> phongdon, ref List<Phong> phongdoi, ref List<Phong> phonggiadinh)
+        public static void LoadRoomToList(ref ObservableCollection<Phong> phongdon, ref ObservableCollection<Phong> phongdoi, ref ObservableCollection<Phong> phonggiadinh)
         {
             SqlConnection sqlConn = SqlConnectionData.Connect();
             if(sqlConn.State == ConnectionState.Open) { sqlConn.Close(); }
@@ -186,7 +187,7 @@ namespace DAL
 
             SqlCommand loadPhong = new SqlCommand();
             loadPhong.CommandType = CommandType.Text;
-            loadPhong.CommandText = "select * from Phong";
+            loadPhong.CommandText = "select P.MaPhong,TenPhong,P.LoaiPhong,P.GiaPhong,P.TrangThaiPhong,P.DonDep,KH.TenKH\r\nfrom Phong P left join Chi_Tiet_Dat_Phong CTDP on P.MaPhong = CTDP.MaPhong\r\n\t\t\tleft join Khach_Hang KH on KH.MaKH = CTDP.MaKH";
             loadPhong.Connection= sqlConn;
 
             SqlDataReader reader = loadPhong.ExecuteReader();
@@ -198,8 +199,14 @@ namespace DAL
                 Double giaphong = reader.GetDouble(3);
                 string trangthaiphong = reader.GetString(4);
                 string dondep = reader.GetString(5);
-                
-                Phong p = new Phong(maphong,tenphong,loaiphong,giaphong,trangthaiphong,dondep);
+                string tenkh;
+                if(reader.IsDBNull(reader.GetOrdinal("TenKH")))
+                {
+                    tenkh = "";
+                }
+                else tenkh = reader.GetString(6);
+
+                Phong p = new Phong(maphong,tenphong,loaiphong,giaphong,trangthaiphong,dondep,tenkh);
                 if (p.LoaiPhong == "Phòng đơn") phongdon.Add(p);
                 else if (p.LoaiPhong == "Phòng đôi") phongdoi.Add(p);
                 else phonggiadinh.Add(p);
@@ -279,9 +286,10 @@ namespace DAL
             #endregion
 
             #region sau đó insert Dich Vụ
-            insertDichVu(dichvu);
+            insertDichVu(ref dichvu);
             #endregion
 
+            #region tiếp theo insert vào Chi tiết dặt phòng
             //tạo kết nối tới CSDL
             SqlConnection sqlConn = SqlConnectionData.Connect();
             if (sqlConn.State == ConnectionState.Closed) { sqlConn.Open(); }
@@ -300,7 +308,7 @@ namespace DAL
             insertChiTietDatPhong.Connection = sqlConn;
             insertChiTietDatPhong.CommandText = "proc_insertChiTietDatPHong";
 
-            insertChiTietDatPhong.Parameters.AddWithValue("@madatphong", MaDatPhong);
+            insertChiTietDatPhong.Parameters.AddWithValue("@madatphong", chiTietDatPhong.MaDatPhong);
             insertChiTietDatPhong.Parameters.AddWithValue("@maphong", chiTietDatPhong.MaPhong);
             insertChiTietDatPhong.Parameters.AddWithValue("@makh",KH.MaKH);
             insertChiTietDatPhong.Parameters.AddWithValue("@sophong", chiTietDatPhong.SoPhong);
@@ -308,20 +316,30 @@ namespace DAL
             insertChiTietDatPhong.Parameters.AddWithValue("@dateout", chiTietDatPhong.DateOut);
             insertChiTietDatPhong.Parameters.AddWithValue("@manv", chiTietDatPhong.MaNV);
             insertChiTietDatPhong.ExecuteNonQuery();
+            #endregion
 
+            #region chuyển trạng thái phòng
             //sao khi đặt phòng xong thì trạng thái phòng chuyển sang trạng thái đã đặt
             SqlCommand updateTrangThaiPhong = new SqlCommand();
             updateTrangThaiPhong.CommandType = CommandType.Text;
             updateTrangThaiPhong.CommandText = "update Phong set TrangThaiPhong = N'Đã thuê' where MaPhong = '"+ chiTietDatPhong.MaPhong + "' ";
             updateTrangThaiPhong.Connection = sqlConn;
-
             updateTrangThaiPhong.ExecuteNonQuery();
+            #endregion
+
+            #region insert đặt phòng dịch vụ
+            //Cuối cùng insert vào bảng đặt phòng dịch vụ
+            //do 1 phòng có nhiều dịch vụ 
+
+            insertDatPhongDichVu(MaDatPhong, dichvu);
+            
             return "success";
+            #endregion
         }
         #endregion
 
         #region insert DichVu
-        public static void insertDichVu(List<DichVu> dv)
+        public static void insertDichVu(ref List<DichVu> dv)
         {
             SqlConnection sqlConn = SqlConnectionData.Connect();
             if (sqlConn.State == ConnectionState.Closed) { sqlConn.Open(); }
@@ -357,11 +375,40 @@ namespace DAL
         }
         #endregion
 
-        #region insert DatPhongDichVi
-        public static void insertDatPhongDichVu()
+        #region insert DatPhongDichVu
+        public static void insertDatPhongDichVu(string maDatPhong, List<DichVu> dv)
         {
+            //tạo kết nối
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == ConnectionState.Closed) { sqlConn.Open(); }
+
+            foreach(var d in dv)
+            {
+                using (SqlCommand insertDatPhongDichVu = new SqlCommand())
+                {
+                    insertDatPhongDichVu.CommandType = CommandType.StoredProcedure;
+                    insertDatPhongDichVu.Connection = sqlConn;
+                    insertDatPhongDichVu.CommandText = "proc_DatPhongDichVu";
+                    insertDatPhongDichVu.Parameters.AddWithValue("@madatphong", maDatPhong);
+                    insertDatPhongDichVu.Parameters.AddWithValue("@madichvu", d.MaDichVu);
+                    insertDatPhongDichVu.ExecuteNonQuery();
+                }
+            }
 
         }
-        #endregion 
+        #endregion
+
+        #region load thông tin của phong (tên khách hàng,dịch vụ đã dặt,....)
+
+        public static void LoadThongTinPhongToList(ref List<ThongTinCuaPhong> Thongtin)
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == System.Data.ConnectionState.Closed)
+            {
+                sqlConn.Open();
+            }
+        }
+
+        #endregion
     }
 }

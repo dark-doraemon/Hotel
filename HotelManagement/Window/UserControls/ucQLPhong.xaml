@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:GUI.Window.UserControls"
              mc:Ignorable="d" 
              Background="Transparent"
+             x:Name="Name_ucQLPhong"
              d:DesignHeight="550" d:DesignWidth="1000">
     <UserControl.Resources>
         <Style x:Key="FocusVisual">
@@ -223,6 +224,7 @@
                         <StackPanel x:Name="spn_PhongDon">
                             <Label>Phòng đơn</Label>
                             <ListView x:Name="lsvPhongDon"
+                                      x:FieldModifier="public"
                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                                     ScrollViewer.VerticalScrollBarVisibility="Disabled">
 

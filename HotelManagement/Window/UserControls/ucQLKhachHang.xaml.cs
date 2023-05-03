@@ -65,8 +65,6 @@ namespace GUI.Window.UserControls
         {
             Button btn = (Button)sender;
             string maKH = btn.DataContext.ToString();
-
-
         }
     }
         

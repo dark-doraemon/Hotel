@@ -1,0 +1,70 @@
+﻿<Window x:Class="GUI.Window.ThanhToan"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI.Window"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None"
+        Title="ThanhToan" Height="400" Width="600">
+    <Border CornerRadius="20" Background="LightBlue" >
+        <Border.Resources>
+            <Style TargetType="Ellipse">
+                <Setter Property="Width" Value="20"></Setter>
+                <Setter Property="Height" Value="20"></Setter>
+                <Setter Property="VerticalAlignment" Value="Top"></Setter>
+                <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+            </Style>
+        </Border.Resources>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <!--thanh kéo-->
+            <Grid x:Name ="gridHeader" 
+                          Grid.Row="0"
+                          Background="Transparent">
+                <Border CornerRadius="20 20  0 0"
+                        Background="LightGreen"
+                        BorderThickness="0" >
+                    <TextBlock x:Name="txb_TenPhong"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               FontSize="15"
+                               PreviewMouseLeftButtonDown="gridHeader_PreviewMouseLeftButtonDown">
+                               FontSize="15"></TextBlock>
+                </Border>
+            </Grid>
+            <Ellipse Fill="Red" Margin="0,5,20,0" MouseLeftButtonDown="red_exit" />
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="301*"/>
+                    <ColumnDefinition Width="299*"/>
+                </Grid.ColumnDefinitions>
+                <WrapPanel Grid.ColumnSpan="2"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center">
+                    <WrapPanel.Resources>
+                        <Style TargetType ="TextBlock">
+                            <Setter Property="FontSize" Value="20"></Setter>
+                            <Setter Property="FontWeight" Value ="Bold"></Setter>
+                            <Setter Property ="Margin" Value ="50 0 0 0"></Setter>
+                        </Style>
+                    </WrapPanel.Resources>
+                    <TextBlock x:Name="txb_TenKhachHang"></TextBlock>
+                    <TextBlock x:Name ="txb_DateIn"></TextBlock>
+                    <TextBlock x:Name ="txb_DateOut"></TextBlock>
+
+                </WrapPanel>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

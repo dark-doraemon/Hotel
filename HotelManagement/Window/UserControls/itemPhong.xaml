@@ -46,7 +46,9 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <TextBlock HorizontalAlignment="Right" Text="{Binding TenNguoiDat}"></TextBlock>
+                <TextBlock x:Name="txb_TenKhachHang"
+                           HorizontalAlignment="Right" 
+                           VerticalAlignment="Center" Text="{Binding TenKH}"></TextBlock>
             </Grid>
             
             <Grid Grid.Row="2">

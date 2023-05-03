@@ -4,6 +4,7 @@ using GUI.Window.UserControls;
 using HotelManagement.GUI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,6 @@ namespace GUI.Window
     /// </summary>
     public partial class DatPhong : System.Windows.Window
     {
-
         //chứa kết quả khi thêm dịch vụ
         public List<DanhSachDichVu> resultDV = new List<DanhSachDichVu> ();
         public string g_sophong = "";
@@ -173,6 +173,12 @@ namespace GUI.Window
             else if (result == "code_date_in") MessageBox.Show("Date in không được để trống");
             else
             {
+                ObservableCollection<Phong> phongdon = new ObservableCollection<Phong>();
+                ObservableCollection<Phong> phongdoi = new ObservableCollection<Phong>();
+                ObservableCollection<Phong> phonggiadinh = new ObservableCollection<Phong>();
+
+                LoadRoomBLL load = new LoadRoomBLL();
+                load.CheckLoadRoomBLL(ref phongdon,ref  phongdoi,ref phonggiadinh);
                 this.Close();
             }
 

@@ -9,6 +9,7 @@
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
+        x:Name="DangKyPhong"
         Title="DatPhong" Height="400" Width="600">
     <Window.Resources>
         <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
