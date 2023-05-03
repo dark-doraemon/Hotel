@@ -38,6 +38,7 @@
                                VerticalAlignment="Center"
                                FontWeight="Bold"
                                FontSize="15"
+                               Background="Transparent"
                                PreviewMouseLeftButtonDown="gridHeader_PreviewMouseLeftButtonDown">
                                FontSize="15"></TextBlock>
                 </Border>
@@ -56,14 +57,73 @@
                         <Style TargetType ="TextBlock">
                             <Setter Property="FontSize" Value="20"></Setter>
                             <Setter Property="FontWeight" Value ="Bold"></Setter>
-                            <Setter Property ="Margin" Value ="50 0 0 0"></Setter>
                         </Style>
                     </WrapPanel.Resources>
-                    <TextBlock x:Name="txb_TenKhachHang"></TextBlock>
-                    <TextBlock x:Name ="txb_DateIn"></TextBlock>
-                    <TextBlock x:Name ="txb_DateOut"></TextBlock>
+                    <!--tên khách hàng--> 
+                    <Image Margin="40 0 0 0" Source="/ImgLinhTinh/Khach.png" Width="30"></Image>
+                    <TextBlock Margin="10 0 50 0" x:Name="txb_TenKhachHang"></TextBlock>
 
+                    <!--datein-->
+                    <Image Source="/ImgLinhTinh/datein.jpg" Width="30"></Image>
+                    <TextBlock  Margin="10 0 50 0" x:Name ="txb_DateIn"></TextBlock>
+                    
+                    <!--dateout-->
+                    <Image Source="/ImgLinhTinh/dateout.png" Width="30" ></Image>
+                    <TextBlock Margin="10 0 0 0" x:Name ="txb_DateOut"></TextBlock>
+                    
                 </WrapPanel>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <!--các dịch vụ-->
+                <Grid Grid.Column="0">
+                    <DataGrid x:Name="dtg_DVDaChon" 
+                              ItemsSource="{Binding ThongTinCuaPhong}"
+                              AutoGenerateColumns="False"
+                              HorizontalAlignment="Center" Margin="0,0,0,30"
+                              VerticalAlignment="Top"
+                              VerticalScrollBarVisibility="Hidden"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              CanUserReorderColumns="False"
+                              CanUserResizeColumns="False"
+                              CanUserResizeRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn IsReadOnly="True" 
+                                                Header="Tên dịch vụ"
+                                                Binding="{Binding TenDichVu}"></DataGridTextColumn>
+                            
+                            <DataGridTextColumn IsReadOnly="True"
+                                                Header="Số lượng"
+                                                Binding="{Binding SoLuong}"></DataGridTextColumn>
+                            
+                            <DataGridTextColumn IsReadOnly="True"
+                                                Header="Thành tiên"
+                                                Binding="{Binding GiaDichVu,StringFormat={}{0:N0}}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <WrapPanel>
+                        <StackPanel>
+                            <TextBlock>Tiền phòng :</TextBlock>
+                            <TextBlock>Tiền dịch vụ :</TextBlock>
+                            <TextBlock>Tổng tiền :</TextBlock>
+                        </StackPanel>
+                        
+                        <StackPanel Margin="10 0 0 0" HorizontalAlignment="Right">
+                            <TextBlock HorizontalAlignment="Right" x:Name="txb_TienPhong"></TextBlock>
+                            <TextBlock HorizontalAlignment="Right" x:Name="txb_TienDichVu"></TextBlock>
+                            <TextBlock HorizontalAlignment="Right" x:Name="txb_TongTien"></TextBlock>
+                        </StackPanel>
+                    </WrapPanel>
+                </Grid>
             </Grid>
         </Grid>
     </Border>

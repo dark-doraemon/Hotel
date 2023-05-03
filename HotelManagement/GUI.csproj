@@ -15,7 +15,10 @@
     <None Remove="Asset\hotel4.jpg" />
     <None Remove="Asset\hotel5.jpg" />
     <None Remove="Asset\icon.ico" />
+    <None Remove="ImgLinhTinh\datein.jpg" />
+    <None Remove="ImgLinhTinh\dateout.png" />
     <None Remove="ImgLinhTinh\imgtaotk.png" />
+    <None Remove="ImgLinhTinh\khach.png" />
     <None Remove="ImgLinhTinh\kinhlup.png" />
     <None Remove="ImgLinhTinh\menuIcon.png" />
     <None Remove="ImgLinhTinh\showpass.jpg" />
@@ -47,7 +50,10 @@
     <Resource Include="Asset\hotel3.jpg" />
     <Resource Include="Asset\hotel4.jpg" />
     <Resource Include="Asset\icon.ico" />
+    <Resource Include="ImgLinhTinh\datein.jpg" />
+    <Resource Include="ImgLinhTinh\dateout.png" />
     <Resource Include="ImgLinhTinh\imgtaotk.png" />
+    <Resource Include="ImgLinhTinh\khach.png" />
     <Resource Include="ImgLinhTinh\kinhlup.png" />
     <Resource Include="ImgLinhTinh\menuIcon.png" />
     <Resource Include="ImgLinhTinh\showpass.jpg" />

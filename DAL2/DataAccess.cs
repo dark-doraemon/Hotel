@@ -400,13 +400,38 @@ namespace DAL
 
         #region load thông tin của phong (tên khách hàng,dịch vụ đã dặt,....)
 
-        public static void LoadThongTinPhongToList(ref List<ThongTinCuaPhong> Thongtin)
+        public static void LoadThongTinPhongToList(ref List<ThongTinCuaPhong> Thongtin,string maphong)
         {
             SqlConnection sqlConn = SqlConnectionData.Connect();
             if (sqlConn.State == System.Data.ConnectionState.Closed)
             {
                 sqlConn.Open();
             }
+
+            SqlCommand laythongtinphong = new SqlCommand();
+            laythongtinphong.Connection = sqlConn;
+            laythongtinphong.CommandType = CommandType.StoredProcedure;
+            laythongtinphong.CommandText = "proc_DichvuOfPhong";
+
+            laythongtinphong.Parameters.AddWithValue("@maphong", maphong);
+
+            SqlDataReader reader = laythongtinphong.ExecuteReader();
+            while(reader.Read())
+            {
+                string maPhong = reader.GetString(0);
+
+                //3 cột này có thê null
+                string tendichvu = reader.IsDBNull(1) ? "" : reader.GetString(0);
+                int soluong = reader.IsDBNull(2) ? 0 : reader.GetInt32(2);
+                Double giadichvu = reader.IsDBNull(3) ? 0 : reader.GetDouble(3);    
+
+
+
+                DateTime datein = reader.GetDateTime(4);
+                DateTime dateout = reader.GetDateTime(5);
+                Thongtin.Add(new ThongTinCuaPhong(maPhong,tendichvu, soluong,giadichvu,datein,dateout));
+            }
+            reader.Close();
         }
 
         #endregion

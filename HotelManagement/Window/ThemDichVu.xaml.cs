@@ -101,7 +101,7 @@ namespace GUI.Window
         private void btn_ThemDichVu(object sender, RoutedEventArgs e)
         {
             //chọn dòng từ datagrid A để chuyển sang datagrid B
-            var selectedRow = dtg_DichVu.SelectedItem as DanhSachDichVu;
+            DanhSachDichVu? selectedRow = dtg_DichVu.SelectedItem as DanhSachDichVu;
             if (!danhSachDaChon.Contains(selectedRow))
             {
                 // Nếu không tồn tại, thêm hàng được chọn vào DataGrid B
@@ -118,7 +118,6 @@ namespace GUI.Window
             CollectionViewSource.GetDefaultView(dtg_DichVu.ItemsSource).Refresh();
         }
         #endregion
-
 
     }
 

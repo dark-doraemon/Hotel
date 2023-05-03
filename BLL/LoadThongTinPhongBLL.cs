@@ -10,9 +10,9 @@ namespace BLL
 {
     public class LoadThongTinPhongBLL
     {
-        public void CheckLoadThongTinPhongBLL(ref List<ThongTinCuaPhong> thongtin)
+        public void CheckLoadThongTinPhongBLL(ref List<ThongTinCuaPhong> thongtin,string maphong)
         {
-            DataAccess.LoadThongTinPhongToList(ref thongtin);
+            DataAccess.LoadThongTinPhongToList(ref thongtin,maphong);
         }
     }
 }

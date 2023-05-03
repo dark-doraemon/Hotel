@@ -26,17 +26,17 @@ namespace GUI.Window
     public partial class DatPhong : System.Windows.Window
     {
         //chứa kết quả khi thêm dịch vụ
-        public List<DanhSachDichVu> resultDV = new List<DanhSachDichVu> ();
+        public List<DanhSachDichVu> resultDV = new List<DanhSachDichVu>();
         public string g_sophong = "";
         public string g_maphong = "";
-
-       
-        public DatPhong(string maphong,string sophong)
+        public string g_tienphong = "";
+        int i = 0;
+        public DatPhong(string maphong, string sophong, string tienphong)
         {
             InitializeComponent();
-            g_sophong= sophong;
-            g_maphong= maphong;
-            
+            g_sophong = sophong;
+            g_maphong = maphong;
+            g_tienphong = tienphong;
         }
         #region nút thoát
         private void red_exit(object sender, MouseButtonEventArgs e)
@@ -108,7 +108,8 @@ namespace GUI.Window
         #region hàm tính tống tiền
         private void btn_Refresh_Click(object sender, RoutedEventArgs e)
         {
-            //Tiền đặt phòng
+            i++;
+            //load dịch vụ
             dtg_DatPhongDichVu.ItemsSource = resultDV;
 
             //Tiền dịch vụ
@@ -117,69 +118,71 @@ namespace GUI.Window
             string strtiendv = String.Format("{0:n0}", sumdichvu);
             txb_TienDichVu.Text = strtiendv;
 
-            //Tổng tiền
-            string tienphong = txb_TienPhong.Text;
-            tienphong = tienphong.Replace(",","");
+            //tiền phòng
+            g_tienphong = g_tienphong.Replace(",", "");
+            double tienphong = Convert.ToDouble(g_tienphong);
+            int sogngay = Convert.ToInt32(txb_SoNgay.Text);
+            txb_TienPhong.Text = string.Format("{0:n0}", (tienphong * sogngay));
 
-            int tongtien = (Convert.ToInt32(tienphong) + Convert.ToInt32(sumdichvu));
-            string strtongtien = String.Format("{0:n0}",tongtien);
+            //tổng tiền
+            int tongtien = (Convert.ToInt32(g_tienphong) + Convert.ToInt32(sumdichvu));
+            string strtongtien = String.Format("{0:n0}", tongtien);
             txb_TongTien.Text = strtongtien;
         }
         #endregion
 
         private void btn_HoanTat_Click(object sender, RoutedEventArgs e)
         {
-            DateTime? datein = dpk_DateIn.SelectedDate;
-            DateTime? dateout = dpk_DateOut.SelectedDate;
-            string tenkhachhang = txt_TenKhachHang.Text;
-            string diachi = txt_DiaChi.Text;
-            string? gioitinh = "";
-            if (cbo_GioiTinh.SelectedItem == null)
-            {
-                MessageBox.Show("Bạn chưa chọn giới tính");
-            }
+            if (i == 0) MessageBox.Show("Bạn chưa nhấn refresh");
             else
             {
-                gioitinh = ((ComboBoxItem)cbo_GioiTinh.SelectedItem).Content.ToString();
-            }
-            string sdt = txt_SDT.Text;
-            string manv = MainUI.manvgui;
-            string sophong = g_sophong;
-            string maphong = g_maphong;
+                DateTime? datein = dpk_DateIn.SelectedDate;
+                DateTime? dateout = dpk_DateOut.SelectedDate;
+                string tenkhachhang = txt_TenKhachHang.Text;
+                string diachi = txt_DiaChi.Text;
+                string? gioitinh = "";
+                if (cbo_GioiTinh.SelectedItem == null)
+                {
+                    MessageBox.Show("Bạn chưa chọn giới tính");
+                }
+                else
+                {
+                    gioitinh = ((ComboBoxItem)cbo_GioiTinh.SelectedItem).Content.ToString();
+                }
+                string sdt = txt_SDT.Text;
+                string manv = MainUI.manvgui;
+                string sophong = g_sophong;
+                string maphong = g_maphong;
 
-            ChiTietDatPhong chitiet = new ChiTietDatPhong("", maphong, "", sophong, datein, dateout, manv);
-            KhachHang Kh = new KhachHang("", tenkhachhang, diachi, gioitinh, sdt);
+                ChiTietDatPhong chitiet = new ChiTietDatPhong("", maphong, "", sophong, datein, dateout, manv);
+                KhachHang Kh = new KhachHang("", tenkhachhang, diachi, gioitinh, sdt);
 
-            //Truyền dữ liệu xuống BLL để check rồi từ BLL xuống DAL để thêm vào CSDL
-            KhachDangKiPhongBLL dangkiphongBLL = new KhachDangKiPhongBLL();
+                //Truyền dữ liệu xuống BLL để check rồi từ BLL xuống DAL để thêm vào CSDL
+                KhachDangKiPhongBLL dangkiphongBLL = new KhachDangKiPhongBLL();
 
-            List<DichVu> LayDuLieuDV = new List<DichVu>();
-            for (int i = 0; i < resultDV.Count; i++)
-            {
-                DichVu dv = new DichVu("",
-                                        resultDV[i].TenDichVu,
-                                        resultDV[i].SoLuong, 
-                                        resultDV[i].ThanhTien);
+                List<DichVu> LayDuLieuDV = new List<DichVu>();
+                for (int i = 0; i < resultDV.Count; i++)
+                {
+                    DichVu dv = new DichVu("",
+                                            resultDV[i].TenDichVu,
+                                            resultDV[i].SoLuong,
+                                            resultDV[i].ThanhTien);
 
-                LayDuLieuDV.Add(dv);
-            }
-            string result = dangkiphongBLL.CheckKhachDangKiPhongBLL(chitiet, Kh, LayDuLieuDV);
+                    LayDuLieuDV.Add(dv);
+                }
+                string result = dangkiphongBLL.CheckKhachDangKiPhongBLL(chitiet, Kh, LayDuLieuDV);
 
-            if (result == "code_date_in") MessageBox.Show("Date in không được để trống");
-            else if (result == "code_date_out") MessageBox.Show("Date out không được để trống");
-            else if (result == "code_ten_KH") MessageBox.Show("Tên khách hàng không được để trống");
-            else if (result == "code_diachi_KH") MessageBox.Show("Địa chỉ KH không được để trống");
-            else if (result == "code_SDT_KH") MessageBox.Show("SĐT KH không được để trống");
-            else if (result == "code_date_in") MessageBox.Show("Date in không được để trống");
-            else
-            {
-                ObservableCollection<Phong> phongdon = new ObservableCollection<Phong>();
-                ObservableCollection<Phong> phongdoi = new ObservableCollection<Phong>();
-                ObservableCollection<Phong> phonggiadinh = new ObservableCollection<Phong>();
+                if (result == "code_date_in") MessageBox.Show("Date in không được để trống");
+                else if (result == "code_date_out") MessageBox.Show("Date out không được để trống");
+                else if (result == "code_ten_KH") MessageBox.Show("Tên khách hàng không được để trống");
+                else if (result == "code_diachi_KH") MessageBox.Show("Địa chỉ KH không được để trống");
+                else if (result == "code_SDT_KH") MessageBox.Show("SĐT KH không được để trống");
+                else if (result == "code_date_in") MessageBox.Show("Date in không được để trống");
+                else
+                {
 
-                LoadRoomBLL load = new LoadRoomBLL();
-                load.CheckLoadRoomBLL(ref phongdon,ref  phongdoi,ref phonggiadinh);
-                this.Close();
+                    this.Close();
+                }
             }
 
 

@@ -33,13 +33,12 @@ namespace GUI.Window.UserControls
         {
             if(txb_TrangThaiPhong.Text == "Đã thuê")
             {
-                ThanhToan thanhtoan = new ThanhToan(txb_MaPhong.Text, txb_NameRoom.Text,txb_TenKhachHang.Text);
+                ThanhToan thanhtoan = new ThanhToan(txb_MaPhong.Text, txb_NameRoom.Text,txb_TenKhachHang.Text,txb_GiaPhong.Text);
                 thanhtoan.ShowDialog();
             }
             else
             {
-                DatPhong windowdatphong = new DatPhong(txb_MaPhong.Text, txb_NameRoom.Text);
-                windowdatphong.txb_TienPhong.Text = txb_GiaPhong.Text;
+                DatPhong windowdatphong = new DatPhong(txb_MaPhong.Text, txb_NameRoom.Text,txb_GiaPhong.Text);
                 windowdatphong.txt_TenPhong.Text = txb_NameRoom.Text;
                 windowdatphong.ShowDialog();
             }
