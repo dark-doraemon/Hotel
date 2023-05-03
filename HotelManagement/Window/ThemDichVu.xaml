@@ -115,7 +115,6 @@
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>
                                                 <Button Background ="Yellow"
-                                                DataContext="{Binding Path=TenDichVu, Mode=OneWay}"
                                                 VerticalContentAlignment="Center"
                                                 HorizontalContentAlignment="Center" Click="btn_ThemDichVu">
                                                     <TextBlock FontSize="20" FontWeight="Bold"
@@ -175,6 +174,21 @@
                                     <DataGridTextColumn IsReadOnly="False" Header="Số lượng" Binding="{Binding SoLuong}"></DataGridTextColumn>
 
                                     <DataGridTextColumn IsReadOnly="False" Header="Thành tiền" Binding="{Binding ThanhTien, StringFormat={}{0:N0}}"></DataGridTextColumn>
+
+                                    <DataGridTemplateColumn Header="Xóa">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Button Background ="Yellow"
+                                                DataContext="{Binding Path=TenDichVu, Mode=OneWay}"
+                                                VerticalContentAlignment="Center"
+                                                HorizontalContentAlignment="Center" Click="btn_XoaDichVu">
+                                                    <TextBlock FontSize="20" FontWeight="Bold"
+                                                        VerticalAlignment="Center"
+                                                        HorizontalAlignment="Center">-</TextBlock>
+                                                </Button>
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
                                 </DataGrid.Columns>
                             </DataGrid>
                         </WrapPanel>

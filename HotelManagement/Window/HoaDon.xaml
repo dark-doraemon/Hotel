@@ -1,0 +1,27 @@
+﻿<Window x:Class="GUI.Window.HoaDon"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI.Window"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        FontFamily="Roboto"
+        Title="HoaDon" Height="600" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <WrapPanel Margin="30" Grid.Row="0">
+            <Image Source="/ImgLinhTinh/logo.png" Width="50" HorizontalAlignment ="Left"></Image>
+            <TextBlock FontSize="35" 
+                       VerticalAlignment="Center" 
+                       FontWeight="Bold"
+                       Foreground="Pink"><Run Text="Hóa đơn"/></TextBlock>
+        </WrapPanel>
+    </Grid>
+</Window>

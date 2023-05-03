@@ -79,5 +79,16 @@ namespace GUI.Window
             this.Close();
         }
         #endregion
+
+        private void btn_Dong_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btn_ThanhToan_Click(object sender, RoutedEventArgs e)
+        {
+            HoaDon d = new HoaDon();
+            d.ShowDialog();
+        }
     }
 }

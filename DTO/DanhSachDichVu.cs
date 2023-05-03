@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DTO
 {
-    public class DanhSachDichVu
+    public class DanhSachDichVu : INotifyPropertyChanged
     {
         public string TenDichVu { get; set; }
         public int GiaTien { get; set; }
@@ -23,7 +24,7 @@ namespace DTO
             this.ThanhTien = thanhtien;
         }
 
-        
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 
     public class LoadDV

@@ -111,7 +111,7 @@
                     Grid.Row ="1"
                     Background="White"
                     BorderThickness="1">
-                <DataGrid x:Name="dtg_KhachHang" ItemsSource="{Binding KhachHang}"
+                <DataGrid x:Name="dtg_KhachHang" ItemsSource="{Binding ThongTinKhachHangDangKyPhong}"
                         GridLinesVisibility="Horizontal" CanUserResizeColumns="False"
                         RowHeight ="40"
                         AutoGenerateColumns="False" 
@@ -125,16 +125,17 @@
                     <DataGrid.Columns >
                         <DataGridTextColumn Width="100" Header="Mã khách hàng" Binding="{Binding MaKH}" />
                         <DataGridTextColumn Width="150"  Header="Tên khách hàng" Binding="{Binding TenKH}" />
-                        <DataGridTextColumn Width="200" Header="Địa chỉ" Binding="{Binding DiaChi}" />
+                        <DataGridTextColumn Width="200" Header="Địa chỉ" Binding="{Binding DiaChiKH}" />
                         <DataGridTextColumn Width ="100" Header="Giới tính" Binding="{Binding GioiTinh}" />
                         <DataGridTextColumn Width ="100"  Header="SĐT" Binding="{Binding SDTKhachHang}" />
-                        <DataGridTextColumn Width ="100" Header ="Data in"></DataGridTextColumn>
-                        <DataGridTextColumn Width="100" Header ="Số ngày thuê"/>
-                        <DataGridTextColumn Width ="100" Header="Số phòng"></DataGridTextColumn>
+                        <DataGridTextColumn Width ="100" Header ="Data in" Binding="{Binding DateIn}"></DataGridTextColumn>
+                        <DataGridTextColumn Width ="100" Header ="Data Out" Binding="{Binding DateOut}"></DataGridTextColumn>
+                        <DataGridTextColumn Width ="100" Header="Số phòng" Binding="{Binding TenPhong}"></DataGridTextColumn>
                         <DataGridTemplateColumn Header="Xóa">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <Button Background ="Yellow" Content ="Xóa"  DataContext="{Binding Path=MaKH, Mode=OneWay}" Click="btn_xoaKhachHang" />
+                                    <!--<Button Background ="Yellow" Content ="Xóa"  DataContext="{Binding Path=MaKH, Mode=OneWay}" Click="btn_xoaKhachHang" />-->
+                                    <Button Background ="Yellow" Content ="Xóa"  Click="btn_xoaKhachHang" />
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

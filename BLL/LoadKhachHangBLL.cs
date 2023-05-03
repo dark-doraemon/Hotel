@@ -9,7 +9,7 @@ namespace BLL
 {
     public class LoadKhachHangBLL
     {
-        public void CheckLoadKhachHangBLL( ref List<KhachHang> khachhang)
+        public void CheckLoadKhachHangBLL( ref List<ThongTinKhachHangDangKyPhong> khachhang)
         {
             DataAccess.LoadKhachHangToList(ref khachhang);
         }

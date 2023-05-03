@@ -41,6 +41,7 @@ namespace GUI.Window
         #region nút thoát
         private void red_exit(object sender, MouseButtonEventArgs e)
         {
+            
             this.Close();
         }
         #endregion
@@ -131,6 +132,7 @@ namespace GUI.Window
         }
         #endregion
 
+        #region đặt phòng hoàn tất
         private void btn_HoanTat_Click(object sender, RoutedEventArgs e)
         {
             if (i == 0) MessageBox.Show("Bạn chưa nhấn refresh");
@@ -184,10 +186,7 @@ namespace GUI.Window
                     this.Close();
                 }
             }
-
-
-
-
         }
+        #endregion
     }
 }

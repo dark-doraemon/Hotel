@@ -6,6 +6,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,9 @@ namespace GUI.Window
     {
         //dùng để tránh bị trùng
         DanhSachDichVuDaChon danhSachDaChon = new DanhSachDichVuDaChon();
-        //chứa dánh sách đã chọn trong list
+
+
+        //chứa dánh sách "đã chọn" trong list
         List<DanhSachDichVu>  dsdachon = new List<DanhSachDichVu> ();
         public ThemDichVu( ref List<DanhSachDichVu> list)
         {
@@ -54,11 +57,10 @@ namespace GUI.Window
         private void Dtg_DichVuDaChon_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             // Lấy đối tượng hàng được chọn
-            var selectedRow = e.Row.Item as DanhSachDichVu;
-
+            DanhSachDichVu? selectedRow = dtg_DichVuDaChon.SelectedItem as DanhSachDichVu;
+            
             // Tính toán lại giá trị Thành tiền
             selectedRow.ThanhTien = selectedRow.SoLuong * selectedRow.GiaTien;
-
             for(int i =  0;i < dsdachon.Count;i++)
             {
                 if (dsdachon[i] == selectedRow)
@@ -119,11 +121,15 @@ namespace GUI.Window
         }
         #endregion
 
+        private void btn_XoaDichVu(object sender, RoutedEventArgs e)
+        {
+            DanhSachDichVu? selectedRow = dtg_DichVuDaChon.SelectedItem as DanhSachDichVu;
+            danhSachDaChon.Remove(selectedRow);
+        }
     }
 
     public class DanhSachDichVuDaChon : ObservableCollection<DanhSachDichVu>
     {
-
     }
    
 

@@ -253,15 +253,15 @@ namespace DAL
         #endregion
 
         #region load khách hàng
-        public static void LoadKhachHangToList(ref List<KhachHang> khachhang)
+        public static void LoadKhachHangToList(ref List<ThongTinKhachHangDangKyPhong> khachhang)
         {
             SqlConnection sqlConn = SqlConnectionData.Connect();
             if (sqlConn.State == ConnectionState.Open) { sqlConn.Close(); }
             else { sqlConn.Open(); }
 
             SqlCommand loadKH = new SqlCommand();
-            loadKH.CommandType = CommandType.Text;
-            loadKH.CommandText = "select * from Khach_Hang";
+            loadKH.CommandType = CommandType.StoredProcedure;
+            loadKH.CommandText = "proc_ThongTinKhachHangDangKyPhong";
             loadKH.Connection = sqlConn;
 
             SqlDataReader reader = loadKH.ExecuteReader();  
@@ -272,7 +272,10 @@ namespace DAL
                 string diachi = reader.GetString(2);
                 string gioitinh = reader.GetString(3);
                 string sdtkhachhang = reader.GetString(4);
-                khachhang.Add(new KhachHang(makh,tenkh,diachi,gioitinh,sdtkhachhang));
+                string datein = reader.GetDateTime(5).ToString("dd/MM/yyyy");
+                string deteout = reader.GetDateTime(6).ToString("dd/MM/yyyy");
+                string tenphong = reader.GetString(7);
+                khachhang.Add(new ThongTinKhachHangDangKyPhong(makh,tenkh,diachi,gioitinh,sdtkhachhang,datein, deteout, tenphong));
             }
             reader.Close();
         }

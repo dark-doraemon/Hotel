@@ -20,6 +20,7 @@
     <None Remove="ImgLinhTinh\imgtaotk.png" />
     <None Remove="ImgLinhTinh\khach.png" />
     <None Remove="ImgLinhTinh\kinhlup.png" />
+    <None Remove="ImgLinhTinh\logo.png" />
     <None Remove="ImgLinhTinh\menuIcon.png" />
     <None Remove="ImgLinhTinh\showpass.jpg" />
     <None Remove="ImgLinhTinh\usericon.jpg" />
@@ -55,6 +56,7 @@
     <Resource Include="ImgLinhTinh\imgtaotk.png" />
     <Resource Include="ImgLinhTinh\khach.png" />
     <Resource Include="ImgLinhTinh\kinhlup.png" />
+    <Resource Include="ImgLinhTinh\logo.png" />
     <Resource Include="ImgLinhTinh\menuIcon.png" />
     <Resource Include="ImgLinhTinh\showpass.jpg" />
     <Resource Include="ImgLinhTinh\usericon.jpg" />

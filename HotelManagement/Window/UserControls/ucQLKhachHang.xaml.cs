@@ -2,6 +2,7 @@
 using DTO;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace GUI.Window.UserControls
     /// </summary>
     public partial class ucQLKhachHang : UserControl
     {
-        List<KhachHang> khachhang = new List<KhachHang>();
+        List<ThongTinKhachHangDangKyPhong> khachhang = new List<ThongTinKhachHangDangKyPhong>();
         public ucQLKhachHang()
         {
             InitializeComponent();
@@ -58,13 +59,14 @@ namespace GUI.Window.UserControls
 
         #endregion
 
-
-
-
         private void btn_xoaKhachHang(object sender, RoutedEventArgs e)
         {
-            Button btn = (Button)sender;
-            string maKH = btn.DataContext.ToString();
+            //Button btn = (Button)sender;
+            //var maKH = btn.DataContext.ToString();
+            var btn = sender as Button;
+            var info = btn.DataContext as ThongTinKhachHangDangKyPhong;
+            
+
         }
     }
         
