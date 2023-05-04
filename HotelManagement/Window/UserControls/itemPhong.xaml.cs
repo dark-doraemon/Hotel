@@ -25,17 +25,24 @@ namespace GUI.Window.UserControls
         public itemPhong()
         {
             InitializeComponent();
+            if (txb_TrangThaiPhong.Text == "Trống")
+            {
+                txb_TenKhachHang.Text = "";
+            }
         }
 
 
         #region sự kiện mỗi khi bấm vào phòng
         private void Room_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+
+
             if(txb_TrangThaiPhong.Text == "Đã thuê")
             {
                 ThanhToan thanhtoan = new ThanhToan(txb_MaPhong.Text, txb_NameRoom.Text,txb_TenKhachHang.Text,txb_GiaPhong.Text);
                 thanhtoan.ShowDialog();
             }
+            
             else
             {
                 DatPhong windowdatphong = new DatPhong(txb_MaPhong.Text, txb_NameRoom.Text,txb_GiaPhong.Text);

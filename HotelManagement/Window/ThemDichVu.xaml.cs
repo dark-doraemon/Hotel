@@ -1,4 +1,5 @@
-﻿using DTO;
+﻿using BLL;
+using DTO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,16 +30,18 @@ namespace GUI.Window
         //dùng để tránh bị trùng
         DanhSachDichVuDaChon danhSachDaChon = new DanhSachDichVuDaChon();
 
-
         //chứa dánh sách "đã chọn" trong list
         List<DanhSachDichVu>  dsdachon = new List<DanhSachDichVu> ();
+        List<BangGiaDichVu> load = new List<BangGiaDichVu>();
+
         public ThemDichVu( ref List<DanhSachDichVu> list)
         {
             InitializeComponent();
+
             #region load dịch vụ lên danh sách dịch vụ
-            LoadDV l = new LoadDV();
-            l.add();
-            dtg_DichVu.ItemsSource = l.list;
+            LoadBangGiaDVBLL loadbll = new LoadBangGiaDVBLL();
+            loadbll.CheckLoadBangGiaDichVu(ref load);
+            dtg_DichVu.ItemsSource = load;
             #endregion
 
             #region code để filter
@@ -103,12 +106,13 @@ namespace GUI.Window
         private void btn_ThemDichVu(object sender, RoutedEventArgs e)
         {
             //chọn dòng từ datagrid A để chuyển sang datagrid B
-            DanhSachDichVu? selectedRow = dtg_DichVu.SelectedItem as DanhSachDichVu;
-            if (!danhSachDaChon.Contains(selectedRow))
+            BangGiaDichVu? selectedRow = dtg_DichVu.SelectedItem as BangGiaDichVu;
+            DanhSachDichVu temp = new DanhSachDichVu(selectedRow.TenGiaDichVu, (int)selectedRow.GiaGiaDichVu,0,0,selectedRow.MaGiaDichVu);
+            if (!danhSachDaChon.Contains(temp))
             {
                 // Nếu không tồn tại, thêm hàng được chọn vào DataGrid B
-                danhSachDaChon.Add(selectedRow);
-                dsdachon.Add(selectedRow);
+                danhSachDaChon.Add(temp);
+                dsdachon.Add(temp);
             }
 
         }
@@ -121,12 +125,16 @@ namespace GUI.Window
         }
         #endregion
 
+        #region xóa dịch vụ
         private void btn_XoaDichVu(object sender, RoutedEventArgs e)
         {
             DanhSachDichVu? selectedRow = dtg_DichVuDaChon.SelectedItem as DanhSachDichVu;
             danhSachDaChon.Remove(selectedRow);
         }
+        #endregion
     }
+
+
 
     public class DanhSachDichVuDaChon : ObservableCollection<DanhSachDichVu>
     {

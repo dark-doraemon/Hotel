@@ -14,14 +14,16 @@ namespace DTO
         public int SoLuong { get; set; } 
         public int ThanhTien { get; set; }
 
+        public string MaGiaDichVu { get; set; } 
 
         DanhSachDichVu() { }
-        public DanhSachDichVu(string tendv, int giatien,int soluong = 0,int thanhtien = 0)
+        public DanhSachDichVu(string tendv = "", int giatien = 0 ,int soluong = 0,int thanhtien = 0,string magiadichvu ="")
         {
             this.TenDichVu = tendv;
             this.GiaTien   = giatien;
             this.SoLuong = soluong;
             this.ThanhTien = thanhtien;
+            this.MaGiaDichVu = magiadichvu; 
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

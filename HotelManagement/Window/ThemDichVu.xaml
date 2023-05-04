@@ -101,7 +101,7 @@
                         <!--danh sách dịch vụ-->
                         <ScrollViewer VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
                             <DataGrid x:Name="dtg_DichVu"  
-                                ItemsSource="{Binding DanhSachDichVu}" 
+                                ItemsSource="{Binding BangGiaDichVu}" 
                                 AutoGenerateColumns="False"
                                 CanUserAddRows="False"
                                 CanUserDeleteRows="False"
@@ -109,8 +109,8 @@
                                 CanUserReorderColumns="False"
                                 IsReadOnly="True" Height="269" Width="210">
                                 <DataGrid.Columns>
-                                    <DataGridTextColumn Header="Tên dịch vụ" Binding="{Binding TenDichVu}"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="Giá dịch vụ" Binding="{Binding GiaTien ,StringFormat={}{0:N0}}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Tên dịch vụ" Binding="{Binding TenGiaDichVu}"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Giá dịch vụ" Binding="{Binding GiaGiaDichVu ,StringFormat={}{0:N0}}"></DataGridTextColumn>
                                     <DataGridTemplateColumn Header="Thêm">
                                         <DataGridTemplateColumn.CellTemplate>
                                             <DataTemplate>

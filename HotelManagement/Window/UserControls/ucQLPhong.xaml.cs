@@ -126,9 +126,9 @@ namespace GUI.Window.UserControls
             chk_PhongDon.IsChecked = false;
             chk_PhongDoi.IsChecked= false;
             chk_PhongGiaDinh.IsChecked= false;
-            chk_DaDonDep.IsChecked = false;
-            chk_ChuaDonDep.IsChecked = false;
-            chk_TatCaDonDep.IsChecked = false;
+            //chk_DaDonDep.IsChecked = false;
+            //chk_ChuaDonDep.IsChecked = false;
+            //chk_TatCaDonDep.IsChecked = false;
         }
         #endregion
 

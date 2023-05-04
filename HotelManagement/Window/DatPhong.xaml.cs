@@ -165,10 +165,12 @@ namespace GUI.Window
                 List<DichVu> LayDuLieuDV = new List<DichVu>();
                 for (int i = 0; i < resultDV.Count; i++)
                 {
+                    Debug.WriteLine(resultDV[i].TenDichVu + " " + resultDV[i].SoLuong + " " + resultDV[i].ThanhTien +  " " + resultDV[i].MaGiaDichVu);
                     DichVu dv = new DichVu("",
                                             resultDV[i].TenDichVu,
                                             resultDV[i].SoLuong,
-                                            resultDV[i].ThanhTien);
+                                            resultDV[i].ThanhTien,
+                                            resultDV[i].MaGiaDichVu);
 
                     LayDuLieuDV.Add(dv);
                 }
@@ -182,7 +184,7 @@ namespace GUI.Window
                 else if (result == "code_date_in") MessageBox.Show("Date in không được để trống");
                 else
                 {
-
+                    
                     this.Close();
                 }
             }

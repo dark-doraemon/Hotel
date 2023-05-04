@@ -12,13 +12,15 @@ namespace DTO
         public string TenDichVu { get; set; }   
         public int SoLuong { get; set; } 
         public int GiaDichVu { get; set; }   
+        public string MaGiaDichVu { get;set; }
         public DichVu() { }
-        public DichVu(string maDichVu, string tenDichVu, int soLuong, int giaDichVu)
+        public DichVu(string maDichVu, string tenDichVu, int soLuong, int giaDichVu, string maGiaDichVu)
         {
             MaDichVu = maDichVu;
             TenDichVu = tenDichVu;
             SoLuong = soLuong;
             GiaDichVu = giaDichVu;
+            MaGiaDichVu = maGiaDichVu;
         }
     }
 }

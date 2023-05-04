@@ -9,19 +9,157 @@
         WindowStyle="None"
         FontFamily="Roboto"
         Title="HoaDon" Height="600" Width="500">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="100"></RowDefinition>
-        </Grid.RowDefinitions>
+    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <Grid>
+            <Button x:Name="btn_print" HorizontalAlignment="Right"
+                    Margin="0 50 50 0" 
+                    Height="30"
+                    Width="30"
+                    VerticalAlignment="Top" Click="btn_print_Click">
+                <Image Source="/ImgLinhTinh/logo.png"></Image>
+            </Button>
+            <Ellipse VerticalAlignment="Top" 
+                     HorizontalAlignment="Right"
+                     Fill="Red" Margin="0" 
+                     Width="20" Height="20" MouseLeftButtonDown="Ellipse_MouseLeftButtonDown"  />
 
-        <WrapPanel Margin="30" Grid.Row="0">
-            <Image Source="/ImgLinhTinh/logo.png" Width="50" HorizontalAlignment ="Left"></Image>
-            <TextBlock FontSize="35" 
-                       VerticalAlignment="Center" 
-                       FontWeight="Bold"
-                       Foreground="Pink"><Run Text="Hóa đơn"/></TextBlock>
-        </WrapPanel>
-    </Grid>
+            
+            <Grid x:Name="print">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="120"/>
+                    <RowDefinition Height="400"/>
+                    <RowDefinition Height="200"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Orientation="Horizontal" Margin="30" Grid.Row="0">
+                    <Image Source="/ImgLinhTinh/logo.png" Width="90" Height="60" VerticalAlignment="Center"/>
+                    <TextBlock Text="Hóa đơn" VerticalAlignment="Center" FontSize="35" FontWeight="Bold" Foreground="#FFFBE188"/>
+                </StackPanel>
+                
+                <StackPanel Grid.Row="1" Margin="20,20,20,124">
+                    <Grid HorizontalAlignment="Stretch" Height="94">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="81*"/>
+                            <ColumnDefinition Width="34*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Grid.Column="0" Margin="10,10,10,10">
+                            <TextBlock x:Name="txb_TenKhachHang" Text="Customer Name" FontSize="20" Margin="5"/>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Ngày in hóa dơn" FontSize="12" Margin="5"/>
+                                <TextBlock x:Name="txb_NgayInHoaDon" FontSize="12" Margin="5" FontWeight="DemiBold"/>
+                            </StackPanel>
+                            
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Nhân viên" FontSize="12" Margin="5"/>
+                                <TextBlock x:Name="txb_NhanVienInHoaDon" FontSize="12" Margin="5" FontWeight="DemiBold"/>
+                            </StackPanel>
+                        </StackPanel>
+                        
+                        
+                        <StackPanel Grid.Column="1" Margin="10,10,10,10">
+                            <TextBlock Text="Số phòng" FontSize="12"/>
+                            <TextBlock x:Name="txb_SoPhong" FontSize="12"/>
+
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Margin="10 30 10 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Chi tiết" Grid.Column="0" FontSize="12" FontWeight="ExtraLight"/>
+                        <TextBlock Text="Giá tiền" Grid.Column="1" FontSize="12" FontWeight="ExtraLight" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Số lượng" Grid.Column="2" FontSize="12" FontWeight="ExtraLight" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Thành tiền" Grid.Column="3" FontSize="12" FontWeight="ExtraLight" HorizontalAlignment="Right"/>
+                    </Grid>
+
+                    <Rectangle Fill="Black" Height="1" Margin="5 2" Opacity="0.5"/>
+
+                    <ListView x:Name="lsv_HoaDon" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ItemsSource="{Binding ThongTinCuaPhong}" Height="100" Margin="10,0,0,0">
+
+                        <ListView.Template>
+                            <ControlTemplate>
+                                <ItemsPresenter></ItemsPresenter>
+                            </ControlTemplate>
+                        </ListView.Template>
+
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="220"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="50"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0" Text="{Binding TenDichVu}"></TextBlock>
+                                    <TextBlock Grid.Column="1" Text="{Binding GiaGiaDichVu,StringFormat={}{0:N0}}" ></TextBlock>
+                                    <TextBlock Grid.Column="2" Text="{Binding SoLuong}" ></TextBlock>
+                                    <TextBlock Grid.Column="3" Text="{Binding ThanhTien,StringFormat={}{0:N0}}" HorizontalAlignment="Right"></TextBlock>
+                                </Grid>
+                            </DataTemplate>
+
+                        </ListView.ItemTemplate>
+
+                    </ListView>
+
+
+                    <Grid Margin="10,0,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="220"/>
+                            <ColumnDefinition Width="105"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" >Tiền thuê phòng</TextBlock>
+                        <TextBlock Grid.Column="1" x:Name="txb_GiaPhong" ></TextBlock>
+                        <TextBlock Grid.Column="2" x:Name="txb_SoNgay"  ></TextBlock>
+                        <TextBlock Grid.Column="3" x:Name="txb_ThanhTien" HorizontalAlignment="Right" ></TextBlock>
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Margin="20,281,20,119" Grid.RowSpan="2">
+                    <Grid Margin="10 20 10 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                    <Rectangle Fill="Black" Height="1" Margin="5" Opacity="0.5"/>
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <StackPanel Orientation="Horizontal"/>
+                            <StackPanel Orientation="Horizontal"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="Tổng tiền" FontSize="25" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock x:Name="txb_TongTien" FontSize="25" Margin="5" HorizontalAlignment="Right" Foreground="#FF62013C" FontWeight="Bold"/>
+                        </StackPanel>
+                    </Grid>
+                    <Rectangle Fill="Black" Height="1" Margin="5" Opacity="0.5"/>
+
+                    <Grid Margin="0 20" HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="♥♥♥Cảm ơn quý khách♥♥♥" VerticalAlignment="Center" FontSize="20" Margin="5" FontWeight="Light"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
 </Window>

@@ -180,12 +180,12 @@
                         </StackPanel>
 
                         <!--Dọn dẹp-->
-                        <StackPanel Margin="0 300 0 0 ">
+                        <!--<StackPanel Margin="0 300 0 0 ">
                             <Label>Dọn dẹp</Label>
                             <RadioButton x:Name="chk_DaDonDep" Checked="chk_DaDonDep_Checked">Đã dọn dẹp</RadioButton>
                             <RadioButton x:Name="chk_ChuaDonDep" Checked="chk_ChuaDonDep_Checked">Chưa dọn dẹp</RadioButton>
                             <RadioButton x:Name="chk_TatCaDonDep" Checked="chk_TatCaDonDep__Checked">Tất cả</RadioButton>
-                        </StackPanel>
+                        </StackPanel>-->
                     </Grid>
 
                 </Border>

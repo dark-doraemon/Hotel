@@ -25,6 +25,7 @@ namespace GUI.Window
     {
 
         List<ThongTinCuaPhong> thongtin = new List<ThongTinCuaPhong> ();
+        string g_maphong = "";
         public void LayThongTinCuaPhong(ref List<ThongTinCuaPhong> thongtin,string maphong)
         {
             LoadThongTinPhongBLL load = new LoadThongTinPhongBLL();
@@ -46,6 +47,7 @@ namespace GUI.Window
             LayThongTinCuaPhong(ref thongtin, maphong);
             txb_TenPhong.Text = tenphong;
             txb_TenKhachHang.Text = tenkhachhang;
+            g_maphong = maphong;
             GanGiaTri();
 
             //tiền phòng
@@ -56,7 +58,7 @@ namespace GUI.Window
 
             //tiền dịch vụ
             double tongtiendichvu = 0;
-            thongtin.ForEach(i=> tongtiendichvu += i.GiaDichVu);
+            thongtin.ForEach(i=> tongtiendichvu += i.ThanhTien);
             string str_tongtiendichvu = string.Format("{0:n0}", tongtiendichvu);
             txb_TienDichVu.Text = str_tongtiendichvu;
 
@@ -73,21 +75,25 @@ namespace GUI.Window
         }
         #endregion
 
-        #region đóng ứng dụng
+        #region đóng thanh toán
         private void red_exit(object sender, MouseButtonEventArgs e)
         {
             this.Close();
         }
-        #endregion
+
 
         private void btn_Dong_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
+        #endregion
 
         private void btn_ThanhToan_Click(object sender, RoutedEventArgs e)
         {
-            HoaDon d = new HoaDon();
+            //khi khi thanh toán phòng thì cáp nhật trạng thái phòng
+            TrangThaiPhongBLL trangThai = new TrangThaiPhongBLL();
+            trangThai.CheckTrangThaiPhong(g_maphong);
+            HoaDon d = new HoaDon(thongtin, txb_TenKhachHang.Text);
             d.ShowDialog();
         }
     }

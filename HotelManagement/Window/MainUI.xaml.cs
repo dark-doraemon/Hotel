@@ -179,7 +179,7 @@ namespace HotelManagement.GUI
         }
         #endregion
 
-        #region nút quản lý phòng
+        #region nút quản lý phòng   
         private void btn_QLPhong_Click(object sender, RoutedEventArgs e)
         {
             #region đàu tiên là hiện lên giao diện quản lý phòng
@@ -206,8 +206,33 @@ namespace HotelManagement.GUI
             contentControl.Content = qlKhachHang;
         }
 
+
         #endregion
 
+        #region quản lý loại phòng
+        private void btn_QLLoaiPhong_Click(object sender, RoutedEventArgs e)
+        {
+            hideStackPannel();
+            contentControl.Visibility = Visibility.Visible;
+            Button clickedButton = (Button)sender;
+            WhiteBar.Content = clickedButton.Content;
+            ucQLLoaiPHong qloaiphong = new ucQLLoaiPHong();
+            contentControl.Content = qloaiphong;
+        }
 
+
+        #endregion
+
+        #region quản lý loại dịch vụ
+        private void btn_QLDichVu_Click(object sender, RoutedEventArgs e)
+        {
+            hideStackPannel();
+            contentControl.Visibility = Visibility.Visible;
+            Button clickedButton = (Button)sender;
+            WhiteBar.Content = clickedButton.Content;
+            ucQLLoaiDV qlloaidv = new ucQLLoaiDV();
+            contentControl.Content = qlloaidv;
+        }
+        #endregion
     }
 }

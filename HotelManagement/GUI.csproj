@@ -22,6 +22,7 @@
     <None Remove="ImgLinhTinh\kinhlup.png" />
     <None Remove="ImgLinhTinh\logo.png" />
     <None Remove="ImgLinhTinh\menuIcon.png" />
+    <None Remove="ImgLinhTinh\printer.jpg" />
     <None Remove="ImgLinhTinh\showpass.jpg" />
     <None Remove="ImgLinhTinh\usericon.jpg" />
   </ItemGroup>
@@ -58,6 +59,7 @@
     <Resource Include="ImgLinhTinh\kinhlup.png" />
     <Resource Include="ImgLinhTinh\logo.png" />
     <Resource Include="ImgLinhTinh\menuIcon.png" />
+    <Resource Include="ImgLinhTinh\printer.jpg" />
     <Resource Include="ImgLinhTinh\showpass.jpg" />
     <Resource Include="ImgLinhTinh\usericon.jpg" />
   </ItemGroup>

@@ -369,6 +369,7 @@ namespace DAL
                     insertDV.Parameters.AddWithValue("@tendichvu", d.TenDichVu);
                     insertDV.Parameters.AddWithValue("@soluong", d.SoLuong);
                     insertDV.Parameters.AddWithValue("@giadichvu", d.GiaDichVu);
+                    insertDV.Parameters.AddWithValue("@magiadichvu", d.MaGiaDichVu);
 
                     insertDV.ExecuteNonQuery();
 
@@ -422,21 +423,91 @@ namespace DAL
             while(reader.Read())
             {
                 string maPhong = reader.GetString(0);
+                string tenphong = reader.GetString(1);
+                double giaphong = reader.GetDouble(2);
 
-                //3 cột này có thê null
-                string tendichvu = reader.IsDBNull(1) ? "" : reader.GetString(0);
-                int soluong = reader.IsDBNull(2) ? 0 : reader.GetInt32(2);
-                Double giadichvu = reader.IsDBNull(3) ? 0 : reader.GetDouble(3);    
+                //3 cột này có thể null
+                string tendichvu = reader.IsDBNull(3) ? "" : reader.GetString(3);
+                double giadichvu = reader.IsDBNull(4) ? 0 : reader.GetDouble(4);
+                int soluong = reader.IsDBNull(5) ? 0 : reader.GetInt32(5);
 
+                Double thanhtien = reader.IsDBNull(6) ? 0 : reader.GetDouble(6);    
+                DateTime datein = reader.GetDateTime(7);
+                DateTime dateout = reader.GetDateTime(8);
+                string tennhanvien = reader.GetString(9);
 
-
-                DateTime datein = reader.GetDateTime(4);
-                DateTime dateout = reader.GetDateTime(5);
-                Thongtin.Add(new ThongTinCuaPhong(maPhong,tendichvu, soluong,giadichvu,datein,dateout));
+                Thongtin.Add(new ThongTinCuaPhong(maPhong,tenphong,giaphong,tendichvu, giadichvu,soluong, thanhtien, datein,dateout,tennhanvien));
             }
             reader.Close();
         }
-
         #endregion
+
+        #region load giá dịch vụ lên bảng dịch vụ
+        public static void LoadDichVuToList(ref List<BangGiaDichVu> list)
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == System.Data.ConnectionState.Closed)
+            {
+                sqlConn.Open();
+            }
+
+            SqlCommand loadDV = sqlConn.CreateCommand();
+            loadDV.CommandType = CommandType.Text;
+            loadDV.CommandText = "select * from Bang_Gia_Dich_vu";
+            loadDV.Connection = sqlConn;    
+
+            SqlDataReader reader = loadDV.ExecuteReader();  
+            while(reader.Read())
+            {
+                string magiadv = reader.GetString(0);
+                string tengiadichvu = reader.GetString(1);
+                double giagiadv = reader.GetDouble(2);
+
+                list.Add(new BangGiaDichVu(magiadv, tengiadichvu, giagiadv));
+            }
+            reader.Close() ;
+        }
+        #endregion
+
+        #region chuyển trạng thái phòng sang trống
+        public static void ChuyenTrangThai(string maphong)
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == System.Data.ConnectionState.Closed)
+            {
+                sqlConn.Open();
+            }
+
+            SqlCommand suatrangthaiphong = new SqlCommand();
+            suatrangthaiphong.CommandType = CommandType.StoredProcedure;
+            suatrangthaiphong.Connection = sqlConn;
+            suatrangthaiphong.CommandText = "proc_SuaTrangThaiPhong";
+
+            suatrangthaiphong.Parameters.AddWithValue("@maphong", maphong);
+
+            suatrangthaiphong.ExecuteNonQuery();
+        }
+        #endregion
+
+        public static string ThayDoiGiaDaL(double giaphong,string loaiphong)
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == System.Data.ConnectionState.Closed)
+            {
+                sqlConn.Open();
+            }
+
+            SqlCommand thaydoigia = new SqlCommand();
+            thaydoigia.CommandType = CommandType.StoredProcedure;   
+            thaydoigia.Connection = sqlConn;
+            thaydoigia.CommandText = "proc_ThayDoiGiaPhong";
+
+            thaydoigia.Parameters.AddWithValue("@giaphong", giaphong);
+            thaydoigia.Parameters.AddWithValue("@loaiphong", loaiphong);
+
+            thaydoigia.ExecuteNonQuery();
+            return "success";
+        }
+
     }
 }
