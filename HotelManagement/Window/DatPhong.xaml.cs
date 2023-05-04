@@ -126,7 +126,8 @@ namespace GUI.Window
             txb_TienPhong.Text = string.Format("{0:n0}", (tienphong * sogngay));
 
             //tổng tiền
-            int tongtien = (Convert.ToInt32(g_tienphong) + Convert.ToInt32(sumdichvu));
+            int songay = Convert.ToInt32(txb_SoNgay.Text);
+            int tongtien = (Convert.ToInt32(g_tienphong) * sogngay + Convert.ToInt32(sumdichvu));
             string strtongtien = String.Format("{0:n0}", tongtien);
             txb_TongTien.Text = strtongtien;
         }

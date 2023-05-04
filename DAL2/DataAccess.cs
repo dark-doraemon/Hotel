@@ -426,12 +426,12 @@ namespace DAL
                 string tenphong = reader.GetString(1);
                 double giaphong = reader.GetDouble(2);
 
-                //3 cột này có thể null
+                //4 cột này có thể null
                 string tendichvu = reader.IsDBNull(3) ? "" : reader.GetString(3);
                 double giadichvu = reader.IsDBNull(4) ? 0 : reader.GetDouble(4);
                 int soluong = reader.IsDBNull(5) ? 0 : reader.GetInt32(5);
-
                 Double thanhtien = reader.IsDBNull(6) ? 0 : reader.GetDouble(6);    
+
                 DateTime datein = reader.GetDateTime(7);
                 DateTime dateout = reader.GetDateTime(8);
                 string tennhanvien = reader.GetString(9);
@@ -442,7 +442,7 @@ namespace DAL
         }
         #endregion
 
-        #region load giá dịch vụ lên bảng dịch vụ
+        #region load giá dịch vụ lên bảng dịch vụ (1)
         public static void LoadDichVuToList(ref List<BangGiaDichVu> list)
         {
             SqlConnection sqlConn = SqlConnectionData.Connect();
@@ -469,6 +469,27 @@ namespace DAL
         }
         #endregion
 
+        #region load giá dịch vụ lên bảng dịch vụ (1)
+        public static DataTable LoadDichVuToList2()
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == System.Data.ConnectionState.Closed)
+            {
+                sqlConn.Open();
+            }
+            DataTable dt = new DataTable();
+            string sql = "select * from Bang_Gia_Dich_vu";
+            SqlCommand loadDV = new SqlCommand(sql, sqlConn);
+            SqlDataReader reader = loadDV.ExecuteReader();
+            dt.Load(reader);
+            sqlConn.Close();
+
+            return dt;
+        }
+
+        #endregion
+
+
         #region chuyển trạng thái phòng sang trống
         public static void ChuyenTrangThai(string maphong)
         {
@@ -489,6 +510,7 @@ namespace DAL
         }
         #endregion
 
+        #region thay đổi giá phòng
         public static string ThayDoiGiaDaL(double giaphong,string loaiphong)
         {
             SqlConnection sqlConn = SqlConnectionData.Connect();
@@ -508,6 +530,86 @@ namespace DAL
             thaydoigia.ExecuteNonQuery();
             return "success";
         }
+        #endregion
 
+
+        #region xóa dịch vụ
+        public static string ThemDichVuDaL(string tendv, string giadichvu)
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == System.Data.ConnectionState.Closed)
+            {
+                sqlConn.Open();
+            }
+
+            SqlCommand themdv = new SqlCommand();
+            themdv.CommandType = CommandType.StoredProcedure;
+            themdv.Connection = sqlConn;
+            themdv.CommandText = "proc_ThemDichVu";
+
+            //Lấy index cuôi của mã bảng giá dv để tạo mã 
+            SqlCommand getlastindexmabanggiadichvu = new SqlCommand();
+            getlastindexmabanggiadichvu.Connection = sqlConn;
+            getlastindexmabanggiadichvu.CommandType = CommandType.Text;
+            getlastindexmabanggiadichvu.CommandText = "select dbo.getLastIndexOfBangGiaDichVu()";
+            string madv = GetLastIndex.MakeCode(getlastindexmabanggiadichvu, "BGDV");
+
+
+
+            themdv.Parameters.AddWithValue("@magiadichvu", madv);
+            themdv.Parameters.AddWithValue("@tendichvu", tendv);
+            themdv.Parameters.AddWithValue("@giadichvu", Convert.ToDouble(giadichvu));
+
+            themdv.ExecuteNonQuery();
+
+            return "success";
+        }
+        #endregion
+        public static string XoaDichVuBLL(string madv)
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == System.Data.ConnectionState.Closed)
+            {
+                sqlConn.Open();
+            }
+
+            SqlCommand xoadv = new SqlCommand();
+            xoadv.CommandType = CommandType.StoredProcedure;
+            xoadv.Connection = sqlConn;
+            xoadv.CommandText = "proc_XoaDichVu";
+
+            try
+            {
+                xoadv.Parameters.AddWithValue("@madv", madv);
+                xoadv.ExecuteNonQuery();
+            }
+            catch {
+                return "code_KhongTheXoa";
+            }
+            return "success";
+
+        }
+
+        public static string SuaDichVuDAL(string madv, string tendv, string giadv)
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == System.Data.ConnectionState.Closed)
+            {
+                sqlConn.Open();
+            }
+
+            SqlCommand suadv = new SqlCommand();
+            suadv.CommandType = CommandType.StoredProcedure;
+            suadv.Connection = sqlConn;
+            suadv.CommandText = "proc_SuaDichVu";
+
+            suadv.Parameters.AddWithValue("@madv", madv);
+            suadv.Parameters.AddWithValue("@tendv", tendv);
+            suadv.Parameters.AddWithValue("@giadv", Convert.ToDouble(giadv));
+
+            suadv.ExecuteNonQuery();
+
+            return "success";
+        }
     }
 }

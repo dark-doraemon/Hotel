@@ -8,16 +8,52 @@
              d:DesignHeight="550" d:DesignWidth="1000">
     <Border CornerRadius="0 0 20 20" Background="White">
         <Grid Margin="0,0,0,30">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
             <DataGrid x:Name="dtg_DichVu"
+                      Grid.Row="0"
                       ItemsSource="{Binding BangGiaDichVu}"
                       VerticalAlignment="Center"
-                      HorizontalAlignment="Center"
-                      AutoGenerateColumns="False">
+                      HorizontalAlignment="Left"
+                      AutoGenerateColumns="False"
+                      CanUserDeleteRows="False"
+                      CanUserReorderColumns="False"
+                      CanUserAddRows="False"
+                      CanUserResizeRows="False" SelectionChanged="dtg_DichVu_SelectionChanged" >
+               
                 <DataGrid.Columns>
                     <DataGridTextColumn Width="200" Header="Tên dịch vụ" Binding="{Binding TenGiaDichVu}"></DataGridTextColumn>
-                    <DataGridTextColumn Width="200" Header="Giá dịch vụ" Binding="{Binding GiaGiaDichVu}"></DataGridTextColumn>
+                    <DataGridTextColumn Width="200" Header="Giá dịch vụ" Binding="{Binding GiaGiaDichVu,StringFormat={}{0:N0}}"></DataGridTextColumn>
+                    <DataGridTemplateColumn Header="Xóa">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <!--<Button Background ="Yellow" Content ="Xóa"  DataContext="{Binding Path=MaKH, Mode=OneWay}" Click="btn_xoaKhachHang" />-->
+                            <Button Background ="Yellow" Content ="Xóa"  Click="btn_XoaDichVu" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
+
             </DataGrid>
+
+            <Grid Grid.Column="1">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock>Tên sản phẩm</TextBlock>
+                    <TextBox x:Name="txt_TenDichVu" Height="20"></TextBox>
+
+
+                    <TextBlock>Giá sản phẩm</TextBlock>
+                    <TextBox x:Name="txt_GiaDichVu" Height="20"></TextBox>
+
+                    <WrapPanel>
+                        <Button x:Name="btn_Them" Click="btn_Them_Click">Thêm </Button>
+                        <Button x:Name="btn_Sua" Click="btn_Sua_Click">Sửa</Button>
+                    </WrapPanel>
+                </StackPanel>
+            </Grid>
         </Grid>
     </Border>
 </UserControl>

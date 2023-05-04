@@ -93,6 +93,9 @@ namespace GUI.Window
             //khi khi thanh toán phòng thì cáp nhật trạng thái phòng
             TrangThaiPhongBLL trangThai = new TrangThaiPhongBLL();
             trangThai.CheckTrangThaiPhong(g_maphong);
+
+            //tiếp theo insert hóa đơn
+
             HoaDon d = new HoaDon(thongtin, txb_TenKhachHang.Text);
             d.ShowDialog();
         }

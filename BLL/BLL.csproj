@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ThayDoiGiaPhongBLL.cs" />
+    <Compile Include="ThemSuaXoaDichVuBLL.cs" />
     <Compile Include="TrangThaiPhongBLL.cs" />
     <Compile Include="CreateAccountBLL.cs" />
     <Compile Include="KhachDangKiPhongBLL.cs" />

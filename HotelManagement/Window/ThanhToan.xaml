@@ -158,7 +158,7 @@
 
                             <DataGridTextColumn IsReadOnly="True" 
                                                 Header="Giá dịch vụ"
-                                                Binding="{Binding GiaDichVu,StringFormat={}{0:N0}}"></DataGridTextColumn>
+                                                Binding="{Binding GiaGiaDichVu,StringFormat={}{0:N0}}"></DataGridTextColumn>
                             
                             <DataGridTextColumn IsReadOnly="True"
                                                 Header="Số lượng"
