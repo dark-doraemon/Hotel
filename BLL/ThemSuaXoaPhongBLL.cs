@@ -9,6 +9,18 @@ namespace BLL
 {
     public class ThemSuaXoaPhongBLL
     {
+        public string CheckSuaPhongBLL(string maphong, string tenphong, string loaiphong, string giaphong)
+        {
+            for (int i = 0; i < giaphong.Length; i++)
+            {
+                if (!(giaphong[i] >= '0' && giaphong[i] <= '9'))
+                {
+                    return "code_error_giaphong";
+                }
+            }
+            return DataAccess.SuaPhongDAL(maphong,tenphong,loaiphong,giaphong);
+        }
+
         public string CheckThemPhong(string tenphong, string giaphong, string loaiphong)
         {
             for(int i = 0;i<giaphong.Length;i++)

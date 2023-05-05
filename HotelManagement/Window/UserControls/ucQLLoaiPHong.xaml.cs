@@ -44,15 +44,15 @@ namespace GUI.Window.UserControls
             string giaphongdon = tb_ThayDoiGiaPhongDon.Text;
             ThayDoiGiaPhongBLL thaydoi = new ThayDoiGiaPhongBLL();
             string res = thaydoi.CheckThayDoiGia(giaphongdon, "Phòng đơn");
-            if(res == "code_error_gia_phong")
+            if (res == "code_error_gia_phong")
             {
                 MessageBox.Show("Giá không hợp lệ");
             }
-            else 
+            else
             {
                 LoadLoaiPhongBLL loadphongdon = new LoadLoaiPhongBLL();
                 dtg_PhongDon.ItemsSource = loadphongdon.ChecKLoadLoaiPhong("Phòng đơn").DefaultView;
-                MessageBox.Show("Thay đổi giá thành công"); 
+                MessageBox.Show("Thay đổi giá thành công");
             }
         }
         #endregion
@@ -67,8 +67,8 @@ namespace GUI.Window.UserControls
             {
                 MessageBox.Show("Giá không hợp lệ");
             }
-            else 
-            { 
+            else
+            {
                 MessageBox.Show("Thay đổi giá thành công");
                 LoadLoaiPhongBLL loadphongdoi = new LoadLoaiPhongBLL();
                 dtg_PhongDoi.ItemsSource = loadphongdoi.ChecKLoadLoaiPhong("Phòng đôi").DefaultView;
@@ -86,8 +86,8 @@ namespace GUI.Window.UserControls
             {
                 MessageBox.Show("Giá không hợp lệ");
             }
-            else 
-            { 
+            else
+            {
                 MessageBox.Show("Thay đổi giá thành công");
                 LoadLoaiPhongBLL loadphonggiadinh = new LoadLoaiPhongBLL();
                 dtg_PhongGiaDinh.ItemsSource = loadphonggiadinh.ChecKLoadLoaiPhong("Phòng gia đình").DefaultView;
@@ -99,7 +99,7 @@ namespace GUI.Window.UserControls
         #region thêm phòng
         private void btn_ThemPhong_Click(object sender, RoutedEventArgs e)
         {
-            string tenphong =txt_TenPhong.Text;
+            string tenphong = txt_TenPhong.Text;
             string giaphong = txt_GiaPhong.Text;
             string? loaiphong = ((ComboBoxItem)cbo_LoaiPhong.SelectedItem).Content.ToString();
             ThemSuaXoaPhongBLL themphong = new ThemSuaXoaPhongBLL();
@@ -133,7 +133,37 @@ namespace GUI.Window.UserControls
         #region sửa phòng
         private void btn_SuaPhong_Click(object sender, RoutedEventArgs e)
         {
+            string maphong = txt_MaPhong.Text;
+            string tenphong = txt_TenPhong.Text;
+            string? loaiphong = ((ComboBoxItem)cbo_LoaiPhong.SelectedItem).Content.ToString();
+            string giaphong = txt_GiaPhong.Text;
 
+
+
+            ThemSuaXoaPhongBLL suaphong = new ThemSuaXoaPhongBLL();
+            string res = suaphong.CheckSuaPhongBLL(maphong, tenphong, loaiphong, giaphong);
+            if(res == "code_error_giaphong")
+            {
+                MessageBox.Show("Giá không hợp lệ");
+            }
+            else if(res == "code_khong_the_sua")
+            {
+                MessageBox.Show("Không thể thay đồi giá phòng đang thuê");
+            }
+            else
+            {
+                MessageBox.Show("Sửa thành công");
+                LoadLoaiPhongBLL loadphongdon = new LoadLoaiPhongBLL();
+                dtg_PhongDon.ItemsSource = loadphongdon.ChecKLoadLoaiPhong("Phòng đơn").DefaultView;
+
+
+                LoadLoaiPhongBLL loadphongdoi = new LoadLoaiPhongBLL();
+                dtg_PhongDoi.ItemsSource = loadphongdoi.ChecKLoadLoaiPhong("Phòng đôi").DefaultView;
+
+                LoadLoaiPhongBLL loadphonggiadinh = new LoadLoaiPhongBLL();
+                dtg_PhongGiaDinh.ItemsSource = loadphonggiadinh.ChecKLoadLoaiPhong("Phòng gia đình").DefaultView;
+
+            }
         }
         #endregion
 
@@ -153,6 +183,8 @@ namespace GUI.Window.UserControls
                         ThemSuaXoaPhongBLL xoaphongdon = new ThemSuaXoaPhongBLL();
                         xoaphongdon.CheckXoaPhong(maphong);
                         LoadLoaiPhongBLL loadphongdon = new LoadLoaiPhongBLL();
+
+                        MessageBox.Show("Xóa thành công");
                         dtg_PhongDon.ItemsSource = loadphongdon.ChecKLoadLoaiPhong("Phòng đơn").DefaultView;
                     }
                 }
@@ -176,6 +208,8 @@ namespace GUI.Window.UserControls
                         ThemSuaXoaPhongBLL xoaphongdon = new ThemSuaXoaPhongBLL();
                         xoaphongdon.CheckXoaPhong(maphong);
                         LoadLoaiPhongBLL loadphongdoi = new LoadLoaiPhongBLL();
+
+                        MessageBox.Show("Xóa thành công");
                         dtg_PhongDoi.ItemsSource = loadphongdoi.ChecKLoadLoaiPhong("Phòng đôi").DefaultView;
                     }
                 }
@@ -199,6 +233,8 @@ namespace GUI.Window.UserControls
                         ThemSuaXoaPhongBLL xoaphongdon = new ThemSuaXoaPhongBLL();
                         xoaphongdon.CheckXoaPhong(maphong);
                         LoadLoaiPhongBLL loadphonggiadinh = new LoadLoaiPhongBLL();
+
+                        MessageBox.Show("Xóa thành công");
                         dtg_PhongGiaDinh.ItemsSource = loadphonggiadinh.ChecKLoadLoaiPhong("Phòng gia đình").DefaultView;
                     }
                 }
@@ -209,12 +245,13 @@ namespace GUI.Window.UserControls
         #region nhập vào textbox khi nhấn vào bảng phòng đơn
         private void dtg_Phongdon_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(dtg_PhongDon.SelectedIndex.ToString() != null)
+            if (dtg_PhongDon.SelectedIndex.ToString() != null)
             {
                 DataRowView dtr = (DataRowView)dtg_PhongDon.SelectedItem;
                 {
-                    if(dtr != null)
+                    if (dtr != null)
                     {
+                        txt_MaPhong.Text = dtr[0].ToString();
                         txt_TenPhong.Text = dtr[1].ToString();
                         txt_GiaPhong.Text = dtr[3].ToString();
                         cbo_LoaiPhong.SelectedIndex = 0;
@@ -233,6 +270,7 @@ namespace GUI.Window.UserControls
                 {
                     if (dtr != null)
                     {
+                        txt_MaPhong.Text = dtr[0].ToString();
                         txt_TenPhong.Text = dtr[1].ToString();
                         txt_GiaPhong.Text = dtr[3].ToString();
                         cbo_LoaiPhong.SelectedIndex = 1;
@@ -251,6 +289,7 @@ namespace GUI.Window.UserControls
                 {
                     if (dtr != null)
                     {
+                        txt_MaPhong.Text = dtr[0].ToString();
                         txt_TenPhong.Text = dtr[1].ToString();
                         txt_GiaPhong.Text = dtr[3].ToString();
                         cbo_LoaiPhong.SelectedIndex = 2;
@@ -260,7 +299,6 @@ namespace GUI.Window.UserControls
         }
         #endregion
 
-        
-        
+
     }
 }

@@ -281,6 +281,27 @@ namespace DAL
         }
         #endregion
 
+        #region load khách hàng 2
+        public static DataTable LoadKhachHangToList2()
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == System.Data.ConnectionState.Closed)
+            {
+                sqlConn.Open();
+            }
+
+            DataTable table = new DataTable();
+            SqlCommand loadKH = new SqlCommand();
+            loadKH.CommandType = CommandType.StoredProcedure;
+            loadKH.CommandText = "proc_ThongTinKhachHangDangKyPhong";
+            loadKH.Connection = sqlConn;
+            SqlDataReader reader = loadKH.ExecuteReader();
+            table.Load(reader);
+            sqlConn.Close();
+            return table;
+        }
+        #endregion
+
         #region chi tiet dat phong
         public static string insertChiTietDatPhong(ChiTietDatPhong chiTietDatPhong,KhachHang KH,List<DichVu> dichvu)
         {
@@ -657,6 +678,7 @@ namespace DAL
         }
         #endregion
 
+        #region thêm phòng
         public static string CheckThemPhongDAL(string tenphong, string giaphong, string loaiphong)
         {
             SqlConnection sqlConn = SqlConnectionData.Connect();
@@ -686,8 +708,32 @@ namespace DAL
             themphong.ExecuteNonQuery();
 
             return "success";
-
         }
+        #endregion
+
+        #region sửa phòng
+        public static string SuaPhongDAL(string maphong, string tenphong, string loaiphong, string giaphong)
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == System.Data.ConnectionState.Closed)
+            {
+                sqlConn.Open();
+            }
+            SqlCommand suaphong = new SqlCommand();
+            suaphong.CommandType = CommandType.StoredProcedure;
+            suaphong.Connection = sqlConn;
+            suaphong.CommandText = "proc_SuaPhong";
+
+            suaphong.Parameters.AddWithValue("@maphong", maphong);
+            suaphong.Parameters.AddWithValue("@tenphong", tenphong);
+            suaphong.Parameters.AddWithValue("@loaiphong", loaiphong);
+            suaphong.Parameters.AddWithValue("@giaphong", giaphong);
+
+            int rs = suaphong.ExecuteNonQuery();
+            if (rs == 0) return "code_khong_the_sua";
+            return "success";
+        }
+        #endregion
 
     }
 }

@@ -2,6 +2,7 @@
 using DTO;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -30,7 +31,6 @@ namespace GUI.Window.UserControls
             LoadKhachHangBLL load = new LoadKhachHangBLL();
 
             load.CheckLoadKhachHangBLL(ref khachhang);
-
             dtg_KhachHang.ItemsSource = khachhang;
 
             CollectionView filterKhachHang = (CollectionView)CollectionViewSource.GetDefaultView(dtg_KhachHang.ItemsSource);
@@ -67,6 +67,15 @@ namespace GUI.Window.UserControls
             var info = btn.DataContext as ThongTinKhachHangDangKyPhong;
             
 
+        }
+
+        private void dtg_KhachHang_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ThongTinKhachHangDangKyPhong? t = dtg_KhachHang.SelectedItem as ThongTinKhachHangDangKyPhong;
+            txt_MaKhachHang.Text = t.MaKH.ToString();
+            txt_TenKhachHang.Text = t.TenKH.ToString();
+            txt_DiaChi.Text = t.DiaChiKH.ToString();
+            txt_SDT.Text = t.SDTKhachHang.ToString();
         }
     }
         

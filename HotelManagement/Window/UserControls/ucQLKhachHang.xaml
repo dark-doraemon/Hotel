@@ -38,7 +38,7 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </UserControl.Resources>
-    
+
     <Border CornerRadius="0 0 20 20"
             Background="White">
         <Border.Resources>
@@ -57,7 +57,7 @@
                 <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            
+
             <!--thanh search-->
             <Grid Background="White">
                 <Grid.Resources>
@@ -99,48 +99,102 @@
 
                 </TextBox>
             </Grid>
-            
-            <!--3 nút-->
-            <Grid HorizontalAlignment="Right" >
-                <StackPanel Orientation="Horizontal">
-                    <Button Background="LightGreen" Width ="45" Height="45">Thêm</Button>
-                </StackPanel>
-            </Grid>
+
+
 
             <Border CornerRadius="0 0 20 20"
                     Grid.Row ="1"
                     Background="White"
                     BorderThickness="1">
-                <DataGrid x:Name="dtg_KhachHang" ItemsSource="{Binding ThongTinKhachHangDangKyPhong}"
-                        GridLinesVisibility="Horizontal" CanUserResizeColumns="False"
-                        RowHeight ="40"
-                        AutoGenerateColumns="False" 
-                        CanUserAddRows="False" 
-                        CanUserResizeRows="False"
-                        Background ="Transparent"
-                        BorderThickness="0"
-                        ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                        SelectionMode="Single" CanUserReorderColumns ="False">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
 
-                    <DataGrid.Columns >
-                        <DataGridTextColumn Width="100" Header="Mã khách hàng" Binding="{Binding MaKH}" />
-                        <DataGridTextColumn Width="150"  Header="Tên khách hàng" Binding="{Binding TenKH}" />
-                        <DataGridTextColumn Width="200" Header="Địa chỉ" Binding="{Binding DiaChiKH}" />
-                        <DataGridTextColumn Width ="100" Header="Giới tính" Binding="{Binding GioiTinh}" />
-                        <DataGridTextColumn Width ="100"  Header="SĐT" Binding="{Binding SDTKhachHang}" />
-                        <DataGridTextColumn Width ="100" Header ="Data in" Binding="{Binding DateIn}"></DataGridTextColumn>
-                        <DataGridTextColumn Width ="100" Header ="Data Out" Binding="{Binding DateOut}"></DataGridTextColumn>
-                        <DataGridTextColumn Width ="100" Header="Số phòng" Binding="{Binding TenPhong}"></DataGridTextColumn>
-                        <DataGridTemplateColumn Header="Xóa">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <!--<Button Background ="Yellow" Content ="Xóa"  DataContext="{Binding Path=MaKH, Mode=OneWay}" Click="btn_xoaKhachHang" />-->
-                                    <Button Background ="Yellow" Content ="Xóa"  Click="btn_xoaKhachHang" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                    <DataGrid x:Name="dtg_KhachHang" 
+                              ItemsSource="{Binding ThongTinKhachHangDangKyPhong}"
+                                GridLinesVisibility="Horizontal"
+                                CanUserResizeColumns="False"
+                                RowHeight ="40"
+                                AutoGenerateColumns="False" 
+                                CanUserAddRows="False" 
+                                CanUserResizeRows="False"
+                                Background ="Transparent"
+                                BorderThickness="0"
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                SelectionMode="Single" 
+                                CanUserReorderColumns ="False" 
+                                CanUserDeleteRows="False"
+                                IsReadOnly="True"
+                                SelectionChanged="dtg_KhachHang_SelectionChanged">
+
+                        <DataGrid.Columns >
+                            <DataGridTextColumn Width="100" Header="Mã khách hàng" Binding="{Binding MaKH}" />
+                            <DataGridTextColumn Width="150"  Header="Tên khách hàng" Binding="{Binding TenKH}" />
+                            <DataGridTextColumn Width="200" Header="Địa chỉ" Binding="{Binding DiaChiKH}" />
+                            <DataGridTextColumn Width ="100" Header="Giới tính" Binding="{Binding GioiTinh}" />
+                            <DataGridTextColumn Width ="100"  Header="SĐT" Binding="{Binding SDTKhachHang}" />
+                            <DataGridTextColumn Width ="100" Header ="Data in" Binding="{Binding DateIn}"></DataGridTextColumn>
+                            <DataGridTextColumn Width ="100" Header ="Data Out" Binding="{Binding DateOut}"></DataGridTextColumn>
+                            <DataGridTextColumn Width ="100" Header="Số phòng" Binding="{Binding TenPhong}"></DataGridTextColumn>
+                            <DataGridTemplateColumn Header="Xóa">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <!--<Button Background ="Yellow" Content ="Xóa"  DataContext="{Binding Path=MaKH, Mode=OneWay}" Click="btn_xoaKhachHang" />-->
+                                        <Button Background ="Yellow" Content ="Xóa"  Click="btn_xoaKhachHang" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Border CornerRadius="0 0 17 17" Grid.Row="1" Background="LightBlue">
+                        <Border.Resources>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Width" Value="100"></Setter>
+                                <Setter Property="Height" Value="30"></Setter>
+                                <Setter Property="FontSize" Value="20"></Setter>
+                                <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                            </Style>
+
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Margin" Value="0 0 60 0 "></Setter>
+                            </Style>
+                        </Border.Resources>
+
+                        <Grid HorizontalAlignment="Center">
+                            <StackPanel>
+                                <WrapPanel>
+                                    <StackPanel>
+                                        <TextBlock>Mã khách hàng</TextBlock>
+                                        <TextBox x:Name="txt_MaKhachHang"></TextBox>
+                                    </StackPanel>
+
+                                    <StackPanel>
+                                        <TextBlock>Tên khách hàng</TextBlock>
+                                        <TextBox x:Name="txt_TenKhachHang"></TextBox>
+                                    </StackPanel>
+
+                                    <StackPanel>
+                                        <TextBlock>Địa chỉ</TextBlock>
+                                        <TextBox x:Name="txt_DiaChi"></TextBox>
+                                    </StackPanel>
+
+                                    <StackPanel>
+                                        <TextBlock>Số điện thoại</TextBlock>
+                                        <TextBox x:Name="txt_SDT"></TextBox>
+                                    </StackPanel>
+
+                                </WrapPanel>
+
+                                <WrapPanel Margin="0 30 0 0" HorizontalAlignment="Center">
+                                    <Button  Width="100" Content="Sửa"/>
+                                </WrapPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
             </Border>
         </Grid>
     </Border>

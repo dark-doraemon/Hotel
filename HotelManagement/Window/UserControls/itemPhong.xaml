@@ -47,7 +47,8 @@
 
             <Grid Grid.Row="1">
                 <TextBlock x:Name="txb_TenKhachHang"
-                           HorizontalAlignment="Right" 
+                           Foreground="Snow"
+                           HorizontalAlignment="Center" 
                            VerticalAlignment="Center" Text="{Binding TenKH}"></TextBlock>
             </Grid>
             

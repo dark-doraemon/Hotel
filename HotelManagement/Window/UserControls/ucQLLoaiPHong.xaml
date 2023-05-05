@@ -24,6 +24,7 @@
                         <Setter Property="CanUserResizeColumns" Value="False"></Setter>
                         <Setter Property="CanUserReorderColumns" Value="False"></Setter>
                         <Setter Property="CanUserResizeRows" Value="False"></Setter>
+                        <Setter Property="IsReadOnly" Value="True"></Setter>
                     </Style>
                 </WrapPanel.Resources>
 
@@ -95,15 +96,19 @@
                             <Setter Property="Height" Value="40"></Setter>
                         </Style>
                     </StackPanel.Resources>
+                    <TextBlock>Mã phòng</TextBlock>
+                    <TextBox x:Name="txt_MaPhong" IsReadOnly="True"></TextBox>
                     <TextBlock>Tên phòng</TextBlock>
                     <TextBox x:Name="txt_TenPhong"></TextBox>
+                    
                     <TextBlock>Giá phòng</TextBlock>
                     <TextBox x:Name="txt_GiaPhong"></TextBox>
+                    
                     <TextBlock>Loại phòng</TextBlock>
                     <ComboBox  x:Name="cbo_LoaiPhong">
                         <ComboBoxItem>Phòng đơn</ComboBoxItem>
                         <ComboBoxItem>Phòng đôi</ComboBoxItem>
-                        <ComboBoxItem>Phòng gia đỉnh</ComboBoxItem>
+                        <ComboBoxItem>Phòng gia đình</ComboBoxItem>
                     </ComboBox>
                     
                     <WrapPanel>
@@ -117,7 +122,8 @@
 
 
             <Grid Grid.Row="1">
-                <WrapPanel >
+                <TextBlock FontWeight="Bold" FontSize="30">Sửa giá nhanh</TextBlock>
+                <WrapPanel VerticalAlignment="Bottom">
                     <StackPanel >
                         <StackPanel.Resources>
                             <Style TargetType="TextBlock" >
@@ -136,6 +142,7 @@
                                 <Setter Property="Height" Value="40"></Setter>
                                 <Setter Property="Margin" Value="20 0 0 0 "></Setter>
                                 <Setter Property="FontSize" Value="20"></Setter>
+                                <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
                             </Style>
                      </StackPanel.Resources>
                         <TextBox x:Name="tb_ThayDoiGiaPhongDon"></TextBox>
