@@ -44,8 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LoadLoaiPhongBLL.cs" />
     <Compile Include="ThayDoiGiaPhongBLL.cs" />
     <Compile Include="ThemSuaXoaDichVuBLL.cs" />
+    <Compile Include="ThemSuaXoaPhongBLL.cs" />
     <Compile Include="TrangThaiPhongBLL.cs" />
     <Compile Include="CreateAccountBLL.cs" />
     <Compile Include="KhachDangKiPhongBLL.cs" />

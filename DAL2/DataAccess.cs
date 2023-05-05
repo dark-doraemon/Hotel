@@ -469,7 +469,7 @@ namespace DAL
         }
         #endregion
 
-        #region load giá dịch vụ lên bảng dịch vụ (1)
+        #region load giá dịch vụ lên bảng dịch vụ (2)
         public static DataTable LoadDichVuToList2()
         {
             SqlConnection sqlConn = SqlConnectionData.Connect();
@@ -488,7 +488,6 @@ namespace DAL
         }
 
         #endregion
-
 
         #region chuyển trạng thái phòng sang trống
         public static void ChuyenTrangThai(string maphong)
@@ -532,8 +531,7 @@ namespace DAL
         }
         #endregion
 
-
-        #region xóa dịch vụ
+        #region thêm dịch vụ
         public static string ThemDichVuDaL(string tendv, string giadichvu)
         {
             SqlConnection sqlConn = SqlConnectionData.Connect();
@@ -565,6 +563,8 @@ namespace DAL
             return "success";
         }
         #endregion
+
+        #region xóa dịch vụ
         public static string XoaDichVuBLL(string madv)
         {
             SqlConnection sqlConn = SqlConnectionData.Connect();
@@ -589,7 +589,9 @@ namespace DAL
             return "success";
 
         }
+        #endregion
 
+        #region sửa dịch vụ
         public static string SuaDichVuDAL(string madv, string tendv, string giadv)
         {
             SqlConnection sqlConn = SqlConnectionData.Connect();
@@ -611,5 +613,81 @@ namespace DAL
 
             return "success";
         }
+        #endregion
+
+        #region load loại phòng
+        public static DataTable LoadLoaiPhongDAL(string loaiphong)
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == System.Data.ConnectionState.Closed)
+            {
+                sqlConn.Open();
+            }
+            DataTable dt = new DataTable();
+            SqlCommand loadPhong = new SqlCommand();
+            loadPhong.CommandType = CommandType.StoredProcedure;
+            loadPhong.Connection = sqlConn;
+            loadPhong.CommandText = "proc_LoadLoaiPhong";
+
+            loadPhong.Parameters.AddWithValue("@loaiphong", loaiphong);
+
+            SqlDataReader reader = loadPhong.ExecuteReader();
+            dt.Load(reader);
+            sqlConn.Close();
+            return dt;
+        }
+        #endregion
+
+        #region Xóa phòng
+        public static void XoaPhongDAL(string maphong)
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == System.Data.ConnectionState.Closed)
+            {
+                sqlConn.Open();
+            }
+            SqlCommand xoaphong = new SqlCommand();
+            xoaphong.CommandType = CommandType.StoredProcedure;
+            xoaphong.Connection = sqlConn;
+            xoaphong.CommandText = "proc_XoaPhong";
+
+            xoaphong.Parameters.AddWithValue("@maphong", maphong);
+
+            xoaphong.ExecuteNonQuery();
+        }
+        #endregion
+
+        public static string CheckThemPhongDAL(string tenphong, string giaphong, string loaiphong)
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == System.Data.ConnectionState.Closed)
+            {
+                sqlConn.Open();
+            }
+
+            SqlCommand getlastindexofmaphong = new SqlCommand();
+            getlastindexofmaphong.CommandType = CommandType.Text;
+            getlastindexofmaphong.Connection = sqlConn;
+            getlastindexofmaphong.CommandText = "select dbo.getLastIndexOfMaPhong()";
+
+            string maphong = GetLastIndex.MakeCode(getlastindexofmaphong, "P");
+
+            SqlCommand themphong = new SqlCommand();
+            themphong.CommandType = CommandType.StoredProcedure;
+            themphong.Connection = sqlConn;
+            themphong.CommandText = "proc_ThemPhong";
+
+            Debug.WriteLine(maphong);
+            themphong.Parameters.AddWithValue("@maphong", maphong);
+            themphong.Parameters.AddWithValue("@tenphong",tenphong);
+            themphong.Parameters.AddWithValue("@loaiphong", loaiphong);
+            themphong.Parameters.AddWithValue("@giaphong", Convert.ToDouble(giaphong));
+
+            themphong.ExecuteNonQuery();
+
+            return "success";
+
+        }
+
     }
 }

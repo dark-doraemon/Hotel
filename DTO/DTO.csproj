@@ -49,6 +49,7 @@
     <Compile Include="DanhSachDichVu.cs" />
     <Compile Include="DichVu.cs" />
     <Compile Include="KhachHang.cs" />
+    <Compile Include="LoaiPhong.cs" />
     <Compile Include="NhanVien.cs" />
     <Compile Include="Phong.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

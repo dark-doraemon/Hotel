@@ -7,45 +7,154 @@
              mc:Ignorable="d" 
             d:DesignHeight="550" d:DesignWidth="1000">
     <Border Background="White" CornerRadius="0 0 20 20"> 
-        <Grid VerticalAlignment="Center" >
-            <WrapPanel>
-                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left">
-                    <StackPanel.Resources>
-                        <Style TargetType="TextBlock" >
-                            <Setter Property="FontSize" Value="30"></Setter>
-                        </Style>
-                    </StackPanel.Resources>
-                    <TextBlock>Phòng đơn</TextBlock>
-                    <TextBlock>Phòng đôi</TextBlock>
-                    <TextBlock>Phòng gia đình</TextBlock>
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <WrapPanel Grid.Row="0">
+                <WrapPanel.Resources>
+                    <Style TargetType="DataGrid">
+                        <Setter Property="Height" Value="250"></Setter>
+                        <Setter Property="AutoGenerateColumns" Value="False"></Setter>
+                        <Setter Property="ItemsSource" Value="{Binding LoaiPhong}"></Setter>
+                        <Setter Property="CanUserAddRows"  Value="False"></Setter>
+                        <Setter Property="CanUserDeleteRows" Value="False"></Setter>
+                        <Setter Property="CanUserResizeColumns" Value="False"></Setter>
+                        <Setter Property="CanUserReorderColumns" Value="False"></Setter>
+                        <Setter Property="CanUserResizeRows" Value="False"></Setter>
+                    </Style>
+                </WrapPanel.Resources>
+
+                <StackPanel>
+                    <TextBlock FontSize="20" FontWeight="Bold">Phòng đơn</TextBlock>
+                    <DataGrid Margin="0 0 30 0 " x:Name="dtg_PhongDon" SelectionChanged="dtg_Phongdon_SelectionChanged">
+                    
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Mã phòng" Binding="{Binding MaPhong}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Tên phòng" Binding="{Binding TenPhong}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Giá phòng" Binding="{Binding GiaPhong,StringFormat={}{0:N0}}"></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Xóa">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <!--<Button Background ="Yellow" Content ="Xóa"  DataContext="{Binding Path=MaKH, Mode=OneWay}" Click="btn_xoaKhachHang" />-->
+                                    <Button x:Name="btn_XoaPhongDon" Background ="Yellow" Content ="Xóa" Click="btn_XoaPhongDon_Click"  />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock FontSize="20" FontWeight="Bold">Phòng đôi</TextBlock>
+                    <DataGrid Margin="0 0 30 0 " x:Name="dtg_PhongDoi" SelectionChanged="dtg_PhongDoi_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Mã phòng" Binding="{Binding MaPhong}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Tên phòng" Binding="{Binding TenPhong}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Giá phòng" Binding="{Binding GiaPhong,StringFormat={}{0:N0}}"></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Xóa">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <!--<Button Background ="Yellow" Content ="Xóa"  DataContext="{Binding Path=MaKH, Mode=OneWay}" Click="btn_xoaKhachHang" />-->
+                                    <Button x:Name="btn_XoaPhongDoi" Background ="Yellow" Content ="Xóa" Click="btn_XoaPhongDoi_Click"  />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
                 </StackPanel>
 
+                <StackPanel>
+                    <TextBlock FontSize="20" FontWeight="Bold">Phòng gia đình</TextBlock>
+                    <DataGrid Margin="0 0 10 0 " x:Name="dtg_PhongGiaDinh" SelectionChanged="dtg_PhongGiaDinh_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Mã phòng" Binding="{Binding MaPhong}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Tên phòng" Binding="{Binding TenPhong}"></DataGridTextColumn>
+                            <DataGridTextColumn Header="Giá phòng" Binding="{Binding GiaPhong,StringFormat={}{0:N0}}"></DataGridTextColumn>
+                        <DataGridTemplateColumn Header="Xóa">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <!--<Button Background ="Yellow" Content ="Xóa"  DataContext="{Binding Path=MaKH, Mode=OneWay}" Click="btn_xoaKhachHang" />-->
+                                    <Button x:Name="btn_XoaPhongGiaDinh"  Background ="Yellow" Content ="Xóa" Click="btn_XoaPhongGiaDinh_Click"  />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                </StackPanel>
                 <StackPanel>
                     <StackPanel.Resources>
                         <Style TargetType="TextBox">
                             <Setter Property="Width" Value="200"></Setter>
-                            <Setter Property="Height" Value="40"></Setter>
-                            <Setter Property="Margin" Value="20 0 0 0 "></Setter>
+                            <Setter Property="Height" Value="30"></Setter>
                             <Setter Property="FontSize" Value="20"></Setter>
                         </Style>
-                    </StackPanel.Resources>
-                    
-                    <TextBox x:Name="tb_ThayDoiGiaPhongDon"></TextBox>
-                    <TextBox x:Name="tb_ThayDoiGiaPhongDoi"></TextBox>
-                    <TextBox x:Name="tb_ThayDoiGiaPhongGiaDinh"></TextBox>
-                </StackPanel>
-
-                <StackPanel>
-                    <StackPanel.Resources>
                         <Style TargetType="Button">
+                            <Setter Property="Width" Value="50"></Setter>
                             <Setter Property="Height" Value="40"></Setter>
                         </Style>
                     </StackPanel.Resources>
-                    <Button x:Name="btn_PhongDon" Click="btn_PhongDon_Click" >Cập nhật</Button>
-                    <Button x:Name="btn_PhongDoi" Click="btn_PhongDoi_Click">Cập nhật</Button>
-                    <Button x:Name="btn_PhongGiaDinh" Click="btn_PhongGiaDinh_Click">Cập nhật</Button>
+                    <TextBlock>Tên phòng</TextBlock>
+                    <TextBox x:Name="txt_TenPhong"></TextBox>
+                    <TextBlock>Giá phòng</TextBlock>
+                    <TextBox x:Name="txt_GiaPhong"></TextBox>
+                    <TextBlock>Loại phòng</TextBlock>
+                    <ComboBox  x:Name="cbo_LoaiPhong">
+                        <ComboBoxItem>Phòng đơn</ComboBoxItem>
+                        <ComboBoxItem>Phòng đôi</ComboBoxItem>
+                        <ComboBoxItem>Phòng gia đỉnh</ComboBoxItem>
+                    </ComboBox>
+                    
+                    <WrapPanel>
+                        <Button x:Name="btn_ThemPhong" Click="btn_ThemPhong_Click">Thêm</Button>
+                        <Button x:Name="btn_SuaPhong" Click="btn_SuaPhong_Click">Sửa</Button>
+                    </WrapPanel>
+
                 </StackPanel>
+
             </WrapPanel>
+
+
+            <Grid Grid.Row="1">
+                <WrapPanel >
+                    <StackPanel >
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBlock" >
+                                <Setter Property="FontSize" Value="30"></Setter>
+                            </Style>
+                        </StackPanel.Resources>
+                        <TextBlock>Phòng đơn</TextBlock>
+                        <TextBlock>Phòng đôi</TextBlock>
+                        <TextBlock>Phòng gia đình</TextBlock>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <StackPanel.Resources>
+                            <Style TargetType="TextBox">
+                                <Setter Property="Width" Value="200"></Setter>
+                                <Setter Property="Height" Value="40"></Setter>
+                                <Setter Property="Margin" Value="20 0 0 0 "></Setter>
+                                <Setter Property="FontSize" Value="20"></Setter>
+                            </Style>
+                     </StackPanel.Resources>
+                        <TextBox x:Name="tb_ThayDoiGiaPhongDon"></TextBox>
+                        <TextBox x:Name="tb_ThayDoiGiaPhongDoi"></TextBox>
+                        <TextBox x:Name="tb_ThayDoiGiaPhongGiaDinh"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel>
+                        <StackPanel.Resources>
+                            <Style TargetType="Button">
+                                <Setter Property="Height" Value="40"></Setter>
+                            </Style>
+                        </StackPanel.Resources>
+                        <Button x:Name="btn_PhongDon" Click="btn_PhongDon_Click" >Cập nhật</Button>
+                        <Button x:Name="btn_PhongDoi" Click="btn_PhongDoi_Click">Cập nhật</Button>
+                        <Button x:Name="btn_PhongGiaDinh" Click="btn_PhongGiaDinh_Click">Cập nhật</Button>
+                    </StackPanel>
+                </WrapPanel>
+            </Grid>
             
             
         </Grid>
