@@ -18,7 +18,7 @@ namespace DAL
         public static SqlConnection Connect()
         {
             string pcname = System.Environment.MachineName;
-            string strConn = @"Data Source=" + pcname + ";Initial Catalog=DB_QuanLyKhachSan3;Integrated Security=True";
+            string strConn = @"Data Source=" + pcname + ";Initial Catalog=DB_QuanLyKhachSan;Integrated Security=True";
             SqlConnection sqlConn = new SqlConnection(strConn);
             return sqlConn;
         }
@@ -858,6 +858,7 @@ namespace DAL
         }
         #endregion
 
+        #region load hóa đơn
         public static List<HoaDon> LoadHoaDonDAL()
         {
             SqlConnection sqlConn = SqlConnectionData.Connect();
@@ -883,7 +884,9 @@ namespace DAL
             }
             return hoaDon;
         }
+        #endregion
 
+        #region xóa hóa đơn
         public static void XoaHoaDonDAL(string maHoaDon)
         {
             SqlConnection sqlConn = SqlConnectionData.Connect();
@@ -899,5 +902,6 @@ namespace DAL
             loadhoadon.Parameters.AddWithValue("@mahoadon", maHoaDon);
             loadhoadon.ExecuteNonQuery();
         }
+        #endregion
     }
 }
