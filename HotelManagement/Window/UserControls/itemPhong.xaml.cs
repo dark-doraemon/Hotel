@@ -20,15 +20,14 @@ namespace GUI.Window.UserControls
     /// <summary>
     /// Interaction logic for itemPhong.xaml
     /// </summary>
+    /// 
     public partial class itemPhong : UserControl
     {
+
         public itemPhong()
         {
             InitializeComponent();
-            if (txb_TrangThaiPhong.Text == "Trống")
-            {
-                txb_TenKhachHang.Text = "";
-            }
+            
         }
 
 
@@ -49,7 +48,6 @@ namespace GUI.Window.UserControls
                 windowdatphong.txt_TenPhong.Text = txb_NameRoom.Text;
                 windowdatphong.ShowDialog();
             }
-            
 
         }
         #endregion

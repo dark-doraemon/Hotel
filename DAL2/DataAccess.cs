@@ -253,8 +253,10 @@ namespace DAL
         #endregion
 
         #region load khách hàng
-        public static void LoadKhachHangToList(ref List<ThongTinKhachHangDangKyPhong> khachhang)
+        public static List<ThongTinKhachHangDangKyPhong> LoadKhachHangToList()
         {
+            List<ThongTinKhachHangDangKyPhong> khachhang = new List<ThongTinKhachHangDangKyPhong> ();
+
             SqlConnection sqlConn = SqlConnectionData.Connect();
             if (sqlConn.State == ConnectionState.Open) { sqlConn.Close(); }
             else { sqlConn.Open(); }
@@ -278,6 +280,7 @@ namespace DAL
                 khachhang.Add(new ThongTinKhachHangDangKyPhong(makh,tenkh,diachi,gioitinh,sdtkhachhang,datein, deteout, tenphong));
             }
             reader.Close();
+            return khachhang;
         }
         #endregion
 
@@ -735,5 +738,28 @@ namespace DAL
         }
         #endregion
 
+        #region Sửa thông tin khách hàng
+        public static string SuaThongTinKhachHangDAL(string makh, string tenkh, string diachi,string gioitinh, string sdt)
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == System.Data.ConnectionState.Closed)
+            {
+                sqlConn.Open();
+            }
+            SqlCommand suattkhachhang = new SqlCommand();
+            suattkhachhang.CommandType = CommandType.StoredProcedure;
+            suattkhachhang.Connection = sqlConn;
+            suattkhachhang.CommandText = "proc_SuaThongTinKhachHang";
+
+            suattkhachhang.Parameters.AddWithValue("@makh", makh);
+            suattkhachhang.Parameters.AddWithValue("@tenkh", tenkh);
+            suattkhachhang.Parameters.AddWithValue("@diachi", diachi);
+            suattkhachhang.Parameters.AddWithValue("@gioitinh", gioitinh);
+            suattkhachhang.Parameters.AddWithValue("@sdt", sdt);
+
+            suattkhachhang.ExecuteNonQuery();
+            return "success";
+        }
+        #endregion
     }
 }

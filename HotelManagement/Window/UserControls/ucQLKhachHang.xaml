@@ -168,28 +168,36 @@
                                 <WrapPanel>
                                     <StackPanel>
                                         <TextBlock>Mã khách hàng</TextBlock>
-                                        <TextBox x:Name="txt_MaKhachHang"></TextBox>
+                                        <TextBox IsReadOnly="True"  x:Name="txt_MaKhachHang"></TextBox>
                                     </StackPanel>
 
                                     <StackPanel>
                                         <TextBlock>Tên khách hàng</TextBlock>
-                                        <TextBox x:Name="txt_TenKhachHang"></TextBox>
+                                        <TextBox x:Name="txt_TenKhachHang" Width="151"></TextBox>
                                     </StackPanel>
 
                                     <StackPanel>
                                         <TextBlock>Địa chỉ</TextBlock>
-                                        <TextBox x:Name="txt_DiaChi"></TextBox>
+                                        <TextBox x:Name="txt_DiaChi" Width="152"></TextBox>
+                                    </StackPanel>
+
+                                    <StackPanel>
+                                        <TextBlock>Giới tính</TextBlock>
+                                        <ComboBox FontSize="20" Height="30" x:Name="cbo_GioiTinh">
+                                            <ComboBoxItem FontSize="20">Nam</ComboBoxItem>
+                                            <ComboBoxItem FontSize="20">Nữ</ComboBoxItem>
+                                        </ComboBox>
                                     </StackPanel>
 
                                     <StackPanel>
                                         <TextBlock>Số điện thoại</TextBlock>
-                                        <TextBox x:Name="txt_SDT"></TextBox>
+                                        <TextBox  x:Name="txt_SDT" MaxLength="11" Width="150"></TextBox>
                                     </StackPanel>
 
                                 </WrapPanel>
 
                                 <WrapPanel Margin="0 30 0 0" HorizontalAlignment="Center">
-                                    <Button  Width="100" Content="Sửa"/>
+                                    <Button x:Name="btn_Sua"  Width="100" Content="Sửa" Click="btn_Sua_Click"/>
                                 </WrapPanel>
                             </StackPanel>
                         </Grid>

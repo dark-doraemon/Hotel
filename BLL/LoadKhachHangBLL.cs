@@ -6,14 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using DTO;
 using System.Data;
+using System.Collections.ObjectModel;
 
 namespace BLL
 {
     public class LoadKhachHangBLL
     {
-        public void CheckLoadKhachHangBLL( ref List<ThongTinKhachHangDangKyPhong> khachhang)
+        public List<ThongTinKhachHangDangKyPhong> CheckLoadKhachHangBLL()
         {
-            DataAccess.LoadKhachHangToList(ref khachhang);
+            return DataAccess.LoadKhachHangToList();
         }
 
         public DataTable CheckLoadKhachHangBLL2()
