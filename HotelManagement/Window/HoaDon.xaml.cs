@@ -22,15 +22,14 @@ namespace GUI.Window
     public partial class HoaDon : System.Windows.Window
     {
 
-        
-        public HoaDon(List<ThongTinCuaPhong> thongtin,string tenkhachhang)
+        public HoaDon(List<ThongTinCuaPhong> thongtin,string tenkhachhang,DateTime ngayinhoadon)
         {
             InitializeComponent();
             txb_TenKhachHang.Text = tenkhachhang;
 
             txb_SoPhong.Text = thongtin[0].TenPhong;
 
-            txb_NgayInHoaDon.Text = DateTime.Now.ToString();
+            txb_NgayInHoaDon.Text = ngayinhoadon.ToString();
 
             txb_NhanVienInHoaDon.Text = thongtin[0].TenNhanVien;
             lsv_HoaDon.ItemsSource = thongtin;

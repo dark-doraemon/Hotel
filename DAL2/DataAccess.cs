@@ -18,7 +18,7 @@ namespace DAL
         public static SqlConnection Connect()
         {
             string pcname = System.Environment.MachineName;
-            string strConn = @"Data Source=" + pcname + ";Initial Catalog=DB_QuanLyKhachSan;Integrated Security=True";
+            string strConn = @"Data Source=" + pcname + ";Initial Catalog=DB_QuanLyKhachSan3;Integrated Security=True";
             SqlConnection sqlConn = new SqlConnection(strConn);
             return sqlConn;
         }
@@ -459,8 +459,9 @@ namespace DAL
                 DateTime datein = reader.GetDateTime(7);
                 DateTime dateout = reader.GetDateTime(8);
                 string tennhanvien = reader.GetString(9);
+                string madatphong = reader.GetString(10);
 
-                Thongtin.Add(new ThongTinCuaPhong(maPhong,tenphong,giaphong,tendichvu, giadichvu,soluong, thanhtien, datein,dateout,tennhanvien));
+                Thongtin.Add(new ThongTinCuaPhong(maPhong,tenphong,giaphong,tendichvu, giadichvu,soluong, thanhtien, datein,dateout,tennhanvien,madatphong));
             }
             reader.Close();
         }
@@ -760,6 +761,103 @@ namespace DAL
             suattkhachhang.ExecuteNonQuery();
             return "success";
         }
+
+        #endregion
+
+        #region insert hóa đơn
+        public static void InsertHoaDonDAL(string madatphong, double tongtien, DateTime ngayinhoadon)
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == System.Data.ConnectionState.Closed)
+            {
+                sqlConn.Open();
+            }
+
+            //đầu tiên từ mã đặt phòng lấy tên khách hàng, mã khách hàng
+            SqlCommand laytenkhachhang = new SqlCommand();
+            laytenkhachhang.CommandType = CommandType.StoredProcedure;
+            laytenkhachhang.Connection = sqlConn;
+            laytenkhachhang.CommandText = "proc_LayTenKhachHang";
+
+            laytenkhachhang.Parameters.AddWithValue("@madatphong", madatphong);
+            SqlDataReader reader = laytenkhachhang.ExecuteReader();
+            string makh = "";
+            string tenkh = "";
+            while(reader.Read())
+            {
+                makh = reader.GetString(0);
+                tenkh = reader.GetString(1);
+            }
+            reader.Close();
+            //sau đó xóa Chi Tiết đặt phòng
+            //trước khi xóa CTDP phải xóa Đặt phòng dịch vụ trước
+           
+
+            //trước khi xóa đặt phòng dv phải lưu lại lại mã DichVu tron dặt phòng dv
+            SqlCommand luumadv = new SqlCommand();
+            luumadv.CommandType = CommandType.StoredProcedure;
+            luumadv.Connection = sqlConn;
+            luumadv.CommandText = "proc_LuuMaDichVuTrongDatPhongDichVu";
+            luumadv.Parameters.AddWithValue("@madatphong", madatphong);
+            List<string> madv = new List<string>();
+            SqlDataReader rdr = luumadv.ExecuteReader();
+            while (rdr.Read())
+            {
+                madv.Add(rdr.GetString(0));
+            }
+            rdr.Close();
+            //xóa đặt phòng dịch vụ
+            SqlCommand xoadatphongdichvu = new SqlCommand();
+            xoadatphongdichvu.CommandType = CommandType.StoredProcedure;
+            xoadatphongdichvu.Connection = sqlConn;
+            xoadatphongdichvu.CommandText = "proc_XoaDatPhongDichVu";
+            xoadatphongdichvu.Parameters.AddWithValue("@madatphong", madatphong);
+            xoadatphongdichvu.ExecuteNonQuery();
+
+
+            //sao đó xóa dịch vụ
+            for (int i = 0;i < madv.Count; i++)
+            {
+                SqlCommand xoadv = new SqlCommand();
+                xoadv.CommandType = CommandType.StoredProcedure;
+                xoadv.Connection = sqlConn;
+                xoadv.CommandText = "proc_XoaDV";
+                xoadv.Parameters.AddWithValue("@madichvu", madv[i]);
+                xoadv.ExecuteNonQuery();
+            }
+
+                        
+
+            //sau đó xóa Chi tiết đặt phòng
+            SqlCommand xoachitietdatphong = new SqlCommand();
+            xoachitietdatphong.CommandType = CommandType.StoredProcedure;
+            xoachitietdatphong.Connection = sqlConn;
+            xoachitietdatphong.CommandText = "proc_XoaChiTietDatPhong";
+            xoachitietdatphong.Parameters.AddWithValue("@madatphong", madatphong);
+            xoachitietdatphong.ExecuteNonQuery();
+
+            //cuối cùng insert hóa đơn
+            //lấy mã cuối của hóa đơn
+            SqlCommand getlastindexofhoadon = new SqlCommand();
+            getlastindexofhoadon.CommandType = CommandType.Text;
+            getlastindexofhoadon.Connection = sqlConn;
+            getlastindexofhoadon.CommandText = "select dbo.getLastIndexOfMaHoaDon()";
+
+            string mahoadon = GetLastIndex.MakeCode(getlastindexofhoadon, "HD");
+
+            SqlCommand insertHoaDon = new SqlCommand();
+            insertHoaDon.CommandType = CommandType.StoredProcedure;
+            insertHoaDon.Connection = sqlConn;
+            insertHoaDon.CommandText = "proc_insertHoaDon";
+
+            insertHoaDon.Parameters.AddWithValue("@mahoadon", mahoadon);
+            insertHoaDon.Parameters.AddWithValue("@makh", makh);
+            insertHoaDon.Parameters.AddWithValue("@tonghoadon", tongtien);
+            insertHoaDon.Parameters.AddWithValue("@ngayinhoadon", ngayinhoadon);
+            Debug.WriteLine(tongtien);
+            insertHoaDon.ExecuteNonQuery();
+        }
+
         #endregion
     }
 }

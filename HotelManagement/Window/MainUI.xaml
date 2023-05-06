@@ -195,7 +195,7 @@
                         <Button x:Name="btn_QLPhong" Click="btn_QLPhong_Click">QL phòng</Button>
                         <Button x:Name="btn_QLLoaiPhong" Click="btn_QLLoaiPhong_Click">QL Loại phòng</Button>
                         <Button x:Name="btn_QLDichVu" Click="btn_QLDichVu_Click">QL dịch vụ</Button>
-                        <Button x:Name="btn_QLHoaDon" Background="Transparent">QL Hóa đơn</Button>
+                        <Button x:Name="btn_QLHoaDon" Background="Transparent" Click="btn_QLHoaDon_Click">QL Hóa đơn</Button>
                     </StackPanel>
                 </Border>
             </Grid>

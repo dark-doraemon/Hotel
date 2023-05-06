@@ -234,5 +234,15 @@ namespace HotelManagement.GUI
             contentControl.Content = qlloaidv;
         }
         #endregion
+
+        private void btn_QLHoaDon_Click(object sender, RoutedEventArgs e)
+        {
+            hideStackPannel();
+            contentControl.Visibility = Visibility.Visible;
+            Button clickedButton = (Button)sender;
+            WhiteBar.Content = clickedButton.Content;
+            ucQLHoaDon qlHoaDon = new ucQLHoaDon();
+            contentControl.Content = qlHoaDon;
+        }
     }
 }

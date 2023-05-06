@@ -20,8 +20,10 @@ namespace DTO
 
         public string TenNhanVien { get; set; }
 
+        public string MaDatPhong { get; set; }
+
         public ThongTinCuaPhong() { }
-        public ThongTinCuaPhong(string maphong,string tenphong,double giaphong,string tendichvu, double giagiadichvu,int soluong,double thanhtien,DateTime datein,DateTime dateout,string tennhanvien)
+        public ThongTinCuaPhong(string maphong,string tenphong,double giaphong,string tendichvu, double giagiadichvu,int soluong,double thanhtien,DateTime datein,DateTime dateout,string tennhanvien,string madatphong)
         {
             this.MaPhong = maphong;
             this.TenPhong = tenphong; 
@@ -33,6 +35,7 @@ namespace DTO
             this.DateIn = datein;
             this.DateOut = dateout;
             this.TenNhanVien = tennhanvien; 
+            this.MaDatPhong = madatphong;
         }
     }
 }

@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="GUI.Window.UserControls.ucQLHoaDon"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:GUI.Window.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="550" d:DesignWidth="1000">
+    <Border CornerRadius="0 0 20 20 " Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--thanh search-->
+            <Grid Background="White">
+                <Grid.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                        <Setter Property="Width" Value="300"></Setter>
+                        <Setter Property="Height" Value="30"></Setter>
+                        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+                        <Setter Property="Padding" Value="40 0 0 0 "></Setter>
+                    </Style>
+                </Grid.Resources>
+
+
+                <TextBox x:Name="txb_SearchKhachHang" FontSize="20" TextChanged="txb_SearchKhachHang_TextChanged">
+                    <TextBox.Background>
+                        <ImageBrush ImageSource="/ImgLinhTinh/kinhlup.png" Stretch="Uniform" AlignmentX="Left">
+                        </ImageBrush>
+                    </TextBox.Background>
+
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="BorderThickness" Value="1"></Setter>
+                            <Setter Property="BorderBrush" Value="Black"></Setter>
+                            <Setter Property="CornerRadius" Value="5"/>
+                            <Setter Property="BorderThickness" Value="1"></Setter>
+                            <Setter Property="BorderBrush" Value="Black"></Setter>
+                        </Style>
+
+                    </TextBox.Resources>
+
+                    <TextBox.BorderThickness>
+                        <Thickness>2</Thickness>
+                    </TextBox.BorderThickness>
+
+                    <TextBox.BorderBrush>
+                        <SolidColorBrush Color="Black"/>
+                    </TextBox.BorderBrush>
+
+                </TextBox>
+            </Grid>
+
+
+            <Border CornerRadius="20" Grid.Row="1">
+                <DataGrid x:Name="dtg_HoaDon" 
+                              ItemsSource="{Binding }"
+                                GridLinesVisibility="Horizontal"
+                                CanUserResizeColumns="False"
+                                RowHeight ="40"
+                                AutoGenerateColumns="False" 
+                                CanUserAddRows="False" 
+                                CanUserResizeRows="False"
+                                Background ="Transparent"
+                                BorderThickness="0"
+                                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                                SelectionMode="Single" 
+                                CanUserReorderColumns ="False" 
+                                CanUserDeleteRows="False"
+                                IsReadOnly="True">
+
+                    <DataGrid.Columns >
+                        <DataGridTextColumn Width="200" Header="Mã hóa đơn"/>
+                        <DataGridTextColumn Width="200" Header="Mã khách hàng"/>
+                        <DataGridTextColumn Width="200" Header="Tên khách hàng"/>
+                        <DataGridTextColumn Width="200" Header="Tổng hoá đơn"/>
+                        <DataGridTextColumn Width="150" Header="Ngày in hóa đơn"/>
+                        <DataGridTemplateColumn Header="Xóa">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <!--<Button Background ="Yellow" Content ="Xóa"  DataContext="{Binding Path=MaKH, Mode=OneWay}" Click="btn_xoaKhachHang" />-->
+                                    <Button Background ="Yellow" Content ="Xóa"  Click="btn_XoaHoaDon" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Border>
+        </Grid>
+
+    </Border>
+</UserControl>

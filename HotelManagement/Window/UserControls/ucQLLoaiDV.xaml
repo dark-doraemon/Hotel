@@ -50,6 +50,12 @@
                     <TextBox x:Name="txt_GiaDichVu" Height="20"></TextBox>
 
                     <WrapPanel>
+                        <WrapPanel.Resources>
+                            <Style TargetType="Button">
+                                <Setter Property="Width" Value="100"></Setter>
+                                <Setter Property="Height" Value="50"></Setter>
+                            </Style>
+                        </WrapPanel.Resources>
                         <Button x:Name="btn_Them" Click="btn_Them_Click">Thêm </Button>
                         <Button x:Name="btn_Sua" Click="btn_Sua_Click">Sửa</Button>
                     </WrapPanel>

@@ -25,6 +25,8 @@ namespace GUI.Window
     {
 
         List<ThongTinCuaPhong> thongtin = new List<ThongTinCuaPhong> ();
+        double tongtienphong = 0;
+        double tongtatca = 0;
         string g_maphong = "";
         public void LayThongTinCuaPhong(ref List<ThongTinCuaPhong> thongtin,string maphong)
         {
@@ -46,14 +48,17 @@ namespace GUI.Window
 
             LayThongTinCuaPhong(ref thongtin, maphong);
             txb_TenPhong.Text = tenphong;
+
             txb_TenKhachHang.Text = tenkhachhang;
+
             g_maphong = maphong;
+
             GanGiaTri();
 
             //tiền phòng
             int ngayvao = thongtin[0].DateIn.Day;
             int ngayra = thongtin[0].DateOut.Day;
-            double tongtienphong = Convert.ToDouble(giaphong) * (ngayra - ngayvao);
+            tongtienphong = Convert.ToDouble(giaphong) * (ngayra - ngayvao);
             txb_TienPhong.Text = string.Format("{0:n0}", tongtienphong);
 
             //tiền dịch vụ
@@ -63,7 +68,8 @@ namespace GUI.Window
             txb_TienDichVu.Text = str_tongtiendichvu;
 
             //tổng tiền
-            txb_TongTien.Text = string.Format("{0:n0}", tongtiendichvu + tongtienphong);
+            tongtatca = tongtiendichvu + tongtienphong;
+            txb_TongTien.Text = string.Format("{0:n0}", tongtatca);
 
         }
 
@@ -88,16 +94,23 @@ namespace GUI.Window
         }
         #endregion
 
+        #region cập nhật trạng thái phòng
         private void btn_ThanhToan_Click(object sender, RoutedEventArgs e)
         {
-            //khi khi thanh toán phòng thì cáp nhật trạng thái phòng
+            //khi khi thanh toán phòng thì cập nhật trạng thái phòng
             TrangThaiPhongBLL trangThai = new TrangThaiPhongBLL();
             trangThai.CheckTrangThaiPhong(g_maphong);
 
             //tiếp theo insert hóa đơn
+            string madatphong = thongtin[0].MaDatPhong.ToString();
+            DateTime ngayinhoadon = DateTime.Now;
+            InsertHoaDonBLL insertHoaDonBLL = new InsertHoaDonBLL();
+            insertHoaDonBLL.CheckInsertHoaDon(madatphong,tongtatca,ngayinhoadon);
 
-            HoaDon d = new HoaDon(thongtin, txb_TenKhachHang.Text);
+
+            HoaDon d = new HoaDon(thongtin, txb_TenKhachHang.Text,ngayinhoadon);
             d.ShowDialog();
         }
+        #endregion
     }
 }
