@@ -825,7 +825,6 @@ namespace DAL
                 xoadv.Parameters.AddWithValue("@madichvu", madv[i]);
                 xoadv.ExecuteNonQuery();
             }
-
                         
 
             //sau đó xóa Chi tiết đặt phòng
@@ -857,7 +856,48 @@ namespace DAL
             Debug.WriteLine(tongtien);
             insertHoaDon.ExecuteNonQuery();
         }
-
         #endregion
+
+        public static List<HoaDon> LoadHoaDonDAL()
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == System.Data.ConnectionState.Closed)
+            {
+                sqlConn.Open();
+            }
+
+            SqlCommand loadhoadon = new SqlCommand();
+            loadhoadon.CommandType = CommandType.StoredProcedure;
+            loadhoadon.Connection = sqlConn;
+            loadhoadon.CommandText = "proc_LoadHoaDon";
+            List<HoaDon> hoaDon = new List<HoaDon>();
+            SqlDataReader reader = loadhoadon.ExecuteReader();
+            while (reader.Read())
+            {
+                string mahoadon = reader.GetString(0);
+                string makh = reader.GetString(1);
+                string tenkh = reader.GetString(2);
+                double tongtien = reader.GetDouble(3);
+                DateTime ngayinhoadon = reader.GetDateTime(4);
+                hoaDon.Add(new HoaDon(mahoadon, makh, tenkh,tongtien, ngayinhoadon));
+            }
+            return hoaDon;
+        }
+
+        public static void XoaHoaDonDAL(string maHoaDon)
+        {
+            SqlConnection sqlConn = SqlConnectionData.Connect();
+            if (sqlConn.State == System.Data.ConnectionState.Closed)
+            {
+                sqlConn.Open();
+            }
+            SqlCommand loadhoadon = new SqlCommand();
+            loadhoadon.CommandType = CommandType.StoredProcedure;
+            loadhoadon.Connection = sqlConn;
+            loadhoadon.CommandText = "proc_XoaHoaDon";
+
+            loadhoadon.Parameters.AddWithValue("@mahoadon", maHoaDon);
+            loadhoadon.ExecuteNonQuery();
+        }
     }
 }

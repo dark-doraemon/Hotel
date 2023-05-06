@@ -34,6 +34,7 @@ namespace GUI.Window.UserControls
             lsvPhongDon.ItemsSource = phongdon;
             lsvPhongDoi.ItemsSource = phongdoi;
             lsvPhongGiaDinh.ItemsSource = phonggiadinh;
+            
         }
         public  ucQLPhong()
         {

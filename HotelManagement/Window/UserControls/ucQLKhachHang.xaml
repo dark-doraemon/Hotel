@@ -6,52 +6,9 @@
              xmlns:local="clr-namespace:GUI.Window.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="550" d:DesignWidth="1000">
-    <UserControl.Resources>
-        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
-        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>
-        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B"/>
-        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
-        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
-        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
-        <ControlTemplate x:Key="CornerRadiusButton" TargetType="{x:Type ButtonBase}">
-            <Border x:Name="border" CornerRadius="20" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
-                <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-            </Border>
-            <ControlTemplate.Triggers>
-                <Trigger Property="Button.IsDefaulted" Value="true">
-                    <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                </Trigger>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                </Trigger>
-                <Trigger Property="IsPressed" Value="true">
-                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Pressed.Border}"/>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="false">
-                    <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Disabled.Background}"/>
-                    <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.Disabled.Border}"/>
-                    <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
-        </ControlTemplate>
-    </UserControl.Resources>
-
     <Border CornerRadius="0 0 20 20"
             Background="White">
-        <Border.Resources>
-            <Style TargetType="Button">
-                <Setter Property="Width" Value="30"></Setter>
-                <Setter Property="Height" Value="30"></Setter>
-                <Setter Property="Margin" Value="0 0 130 0"></Setter>
-                <Setter Property="Template" Value="{DynamicResource CornerRadiusButton}"></Setter>
-                <Setter Property="BorderThickness" Value="3"></Setter>
-                <Setter Property="BorderBrush" Value="Red"></Setter>
-
-            </Style>
-        </Border.Resources>
+       
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"></RowDefinition>
@@ -137,15 +94,8 @@
                             <DataGridTextColumn Width ="100"  Header="SĐT" Binding="{Binding SDTKhachHang}" />
                             <DataGridTextColumn Width ="100" Header ="Data in" Binding="{Binding DateIn}"></DataGridTextColumn>
                             <DataGridTextColumn Width ="100" Header ="Data Out" Binding="{Binding DateOut}"></DataGridTextColumn>
-                            <DataGridTextColumn Width ="100" Header="Số phòng" Binding="{Binding TenPhong}"></DataGridTextColumn>
-                            <DataGridTemplateColumn Header="Xóa">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <!--<Button Background ="Yellow" Content ="Xóa"  DataContext="{Binding Path=MaKH, Mode=OneWay}" Click="btn_xoaKhachHang" />-->
-                                        <Button Background ="Yellow" Content ="Xóa"  Click="btn_xoaKhachHang" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Width ="150" Header="Số phòng" Binding="{Binding TenPhong}"></DataGridTextColumn>
+                            
                         </DataGrid.Columns>
                     </DataGrid>
 
@@ -163,43 +113,38 @@
                             </Style>
                         </Border.Resources>
 
-                        <Grid HorizontalAlignment="Center">
-                            <StackPanel>
-                                <WrapPanel>
-                                    <StackPanel>
-                                        <TextBlock>Mã khách hàng</TextBlock>
-                                        <TextBox IsReadOnly="True"  x:Name="txt_MaKhachHang"></TextBox>
-                                    </StackPanel>
+                        <Grid >
+                            <WrapPanel>
+                                <StackPanel>
+                                    <TextBlock>Mã khách hàng</TextBlock>
+                                    <TextBox IsReadOnly="True"  x:Name="txt_MaKhachHang" Width="104"></TextBox>
+                                </StackPanel>
 
-                                    <StackPanel>
-                                        <TextBlock>Tên khách hàng</TextBlock>
-                                        <TextBox x:Name="txt_TenKhachHang" Width="151"></TextBox>
-                                    </StackPanel>
+                                <StackPanel>
+                                    <TextBlock>Tên khách hàng</TextBlock>
+                                    <TextBox x:Name="txt_TenKhachHang" Width="103"></TextBox>
+                                </StackPanel>
 
-                                    <StackPanel>
-                                        <TextBlock>Địa chỉ</TextBlock>
-                                        <TextBox x:Name="txt_DiaChi" Width="152"></TextBox>
-                                    </StackPanel>
+                                <StackPanel>
+                                    <TextBlock>Địa chỉ</TextBlock>
+                                    <TextBox x:Name="txt_DiaChi" Width="126"></TextBox>
+                                </StackPanel>
 
-                                    <StackPanel>
-                                        <TextBlock>Giới tính</TextBlock>
-                                        <ComboBox FontSize="20" Height="30" x:Name="cbo_GioiTinh">
-                                            <ComboBoxItem FontSize="20">Nam</ComboBoxItem>
-                                            <ComboBoxItem FontSize="20">Nữ</ComboBoxItem>
-                                        </ComboBox>
-                                    </StackPanel>
+                                <StackPanel Width="70">
+                                    <TextBlock>Giới tính</TextBlock>
+                                    <ComboBox FontSize="20" Height="30" x:Name="cbo_GioiTinh">
+                                        <ComboBoxItem FontSize="20">Nam</ComboBoxItem>
+                                        <ComboBoxItem FontSize="20">Nữ</ComboBoxItem>
+                                    </ComboBox>
+                                </StackPanel>
 
-                                    <StackPanel>
-                                        <TextBlock>Số điện thoại</TextBlock>
-                                        <TextBox  x:Name="txt_SDT" MaxLength="11" Width="150"></TextBox>
-                                    </StackPanel>
+                                <StackPanel>
+                                    <TextBlock>Số điện thoại</TextBlock>
+                                    <TextBox  x:Name="txt_SDT" MaxLength="11" Width="164"></TextBox>
+                                </StackPanel>
 
-                                </WrapPanel>
-
-                                <WrapPanel Margin="0 30 0 0" HorizontalAlignment="Center">
                                     <Button x:Name="btn_Sua"  Width="100" Content="Sửa" Click="btn_Sua_Click"/>
-                                </WrapPanel>
-                            </StackPanel>
+                            </WrapPanel>
                         </Grid>
                     </Border>
                 </Grid>

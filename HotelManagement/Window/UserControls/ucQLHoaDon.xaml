@@ -26,7 +26,7 @@
                 </Grid.Resources>
 
 
-                <TextBox x:Name="txb_SearchKhachHang" FontSize="20" TextChanged="txb_SearchKhachHang_TextChanged">
+                <TextBox x:Name="txb_SearchHoaDon" FontSize="20" TextChanged="txb_SearchKhachHang_TextChanged">
                     <TextBox.Background>
                         <ImageBrush ImageSource="/ImgLinhTinh/kinhlup.png" Stretch="Uniform" AlignmentX="Left">
                         </ImageBrush>
@@ -57,7 +57,7 @@
 
             <Border CornerRadius="20" Grid.Row="1">
                 <DataGrid x:Name="dtg_HoaDon" 
-                              ItemsSource="{Binding }"
+                              ItemsSource="{Binding HoaDon}"
                                 GridLinesVisibility="Horizontal"
                                 CanUserResizeColumns="False"
                                 RowHeight ="40"
@@ -73,11 +73,11 @@
                                 IsReadOnly="True">
 
                     <DataGrid.Columns >
-                        <DataGridTextColumn Width="200" Header="Mã hóa đơn"/>
-                        <DataGridTextColumn Width="200" Header="Mã khách hàng"/>
-                        <DataGridTextColumn Width="200" Header="Tên khách hàng"/>
-                        <DataGridTextColumn Width="200" Header="Tổng hoá đơn"/>
-                        <DataGridTextColumn Width="150" Header="Ngày in hóa đơn"/>
+                        <DataGridTextColumn Binding="{Binding MaHoaDon}" Width="200" Header="Mã hóa đơn"/>
+                        <DataGridTextColumn Binding="{Binding MaKh}" Width="200" Header="Mã khách hàng"/>
+                        <DataGridTextColumn Binding="{Binding TenKH}" Width="200" Header="Tên khách hàng"/>
+                        <DataGridTextColumn Binding="{Binding TongHoaDon,StringFormat={}{0:N0}}" Width="200" Header="Tổng hoá đơn"/>
+                        <DataGridTextColumn Binding="{Binding NgayInHoaDon}" Width="150" Header="Ngày in hóa đơn"/>
                         <DataGridTemplateColumn Header="Xóa">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>

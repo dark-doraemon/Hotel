@@ -60,16 +60,6 @@ namespace GUI.Window.UserControls
 
         #endregion
 
-        #region xóa khách hàng
-        private void btn_xoaKhachHang(object sender, RoutedEventArgs e)
-        {
-            //Button btn = (Button)sender;
-            //var maKH = btn.DataContext.ToString();
-            var btn = sender as Button;
-            var info = btn.DataContext as ThongTinKhachHangDangKyPhong;
-        }
-        #endregion
-
         #region hiển thị thông tin lên textbox khi nhấp vào hàng
         private void dtg_KhachHang_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

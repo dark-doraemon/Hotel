@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    public class DanhSachDichVu : INotifyPropertyChanged
+    public class DanhSachDichVu 
     {
         public string TenDichVu { get; set; }
         public int GiaTien { get; set; }
@@ -26,7 +26,6 @@ namespace DTO
             this.MaGiaDichVu = magiadichvu; 
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 
     public class LoadDV

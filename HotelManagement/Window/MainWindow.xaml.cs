@@ -63,7 +63,6 @@ namespace HotelManagement
                 MessageBox.Show("Tài khoản hoặc mật khẩu sai");
                 return;
             }
-            else MessageBox.Show(getUser);
 
 
             //nếu đúng
