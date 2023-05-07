@@ -122,7 +122,16 @@
                     </TextBox.BorderBrush>
 
                 </TextBox>
-
+                <Button Margin ="0 0 40 0"  
+                        Style="{DynamicResource RoundButton}"
+                        x:Name="btn_Refresh" 
+                        HorizontalAlignment="Right"
+                        Width="50" Height="50"
+                        VerticalAlignment="Center"
+                        Background="Pink"
+                        BorderBrush="Blue"
+                        BorderThickness="3"
+                        Click="btn_Refresh_Click">Refresh</Button>
             </Grid>
 
             <Grid Grid.Row="1">

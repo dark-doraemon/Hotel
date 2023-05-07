@@ -11,7 +11,7 @@ namespace BLL
 {
     public class LoadRoomBLL
     {
-        public void CheckLoadRoomBLL(ref ObservableCollection<Phong> phongdon, ref ObservableCollection<Phong> phongdoi, ref ObservableCollection<Phong> phonggiadinh)
+        public void CheckLoadRoomBLL(ref List<Phong> phongdon, ref List<Phong> phongdoi, ref List<Phong> phonggiadinh)
         {
             DataAccess.LoadRoomToList(ref phongdon,ref phongdoi, ref phonggiadinh);
         }

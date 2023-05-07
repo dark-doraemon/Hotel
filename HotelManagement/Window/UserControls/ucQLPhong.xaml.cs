@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,10 +27,10 @@ namespace GUI.Window.UserControls
     public partial class ucQLPhong : UserControl
     {
 
-        ObservableCollection<Phong> phongdon = new ObservableCollection<Phong>();
-        ObservableCollection<Phong> phongdoi = new ObservableCollection<Phong>();
-        ObservableCollection<Phong> phonggiadinh = new ObservableCollection<Phong>();
-        public  void SetListViewSource(ObservableCollection<Phong> phongdon, ObservableCollection<Phong> phongdoi, ObservableCollection<Phong> phonggiadinh)
+        List<Phong> phongdon = new List<Phong>();
+        List<Phong> phongdoi = new List<Phong>();
+        List<Phong> phonggiadinh = new List<Phong>();
+        public  void SetListViewSource( List<Phong> phongdon, List<Phong> phongdoi, List<Phong> phonggiadinh)
         {
             lsvPhongDon.ItemsSource = phongdon;
             lsvPhongDoi.ItemsSource = phongdoi;
@@ -57,6 +58,28 @@ namespace GUI.Window.UserControls
             filterPhongDoi.Filter = PhongFilter;
             filterPhongGiaDinh.Filter = PhongFilter;
 
+            KeyDown += Event_F5;
+
+        }
+
+        private void Event_F5(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.F5)
+            {
+                lsvPhongDon.ItemsSource = null;
+                lsvPhongDoi.ItemsSource = null;
+                lsvPhongGiaDinh.ItemsSource = null;
+
+                LoadRoomBLL load = new LoadRoomBLL();
+                List<Phong> pdon = new List<Phong>();
+                List<Phong> pdoi = new List<Phong>();
+                List<Phong> pgd = new List<Phong>();
+                load.CheckLoadRoomBLL(ref pdon, ref pdoi, ref pgd);
+                lsvPhongDon.ItemsSource = pdon;
+                lsvPhongDoi.ItemsSource = pdoi;
+                lsvPhongGiaDinh.ItemsSource = pgd;
+                Debug.WriteLine("Refresh");
+            }
         }
         #region Hàm filter
         private bool PhongFilter(object item)//Item là các phần tử trong Nguồn dữ liệu cần filter
@@ -79,7 +102,6 @@ namespace GUI.Window.UserControls
             CollectionViewSource.GetDefaultView(lsvPhongGiaDinh.ItemsSource).Refresh();
         }
         #endregion
-
 
         #region Lọc phòng đơn
         private void chk_PhongDon_Checked(object sender, RoutedEventArgs e)
@@ -205,9 +227,25 @@ namespace GUI.Window.UserControls
 
 
 
+
         #endregion
 
-        
+        private void btn_Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            lsvPhongDon.ItemsSource = null;
+            lsvPhongDoi.ItemsSource = null;
+            lsvPhongGiaDinh.ItemsSource = null;
+
+            LoadRoomBLL load = new LoadRoomBLL();
+            List<Phong> pdon = new List<Phong>();
+            List<Phong> pdoi = new List<Phong>();
+            List<Phong> pgd = new List<Phong>();
+            load.CheckLoadRoomBLL(ref pdon, ref pdoi, ref pgd);
+            lsvPhongDon.ItemsSource = pdon;
+            lsvPhongDoi.ItemsSource = pdoi;
+            lsvPhongGiaDinh.ItemsSource = pgd;
+            Debug.WriteLine("Refresh");
+        }
     }
 
 }

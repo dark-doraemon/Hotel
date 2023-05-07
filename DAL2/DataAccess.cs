@@ -179,7 +179,7 @@ namespace DAL
 
         #region load dữ liệu phòng
 
-        public static void LoadRoomToList(ref ObservableCollection<Phong> phongdon, ref ObservableCollection<Phong> phongdoi, ref ObservableCollection<Phong> phonggiadinh)
+        public static void LoadRoomToList(ref List<Phong> phongdon, ref List<Phong> phongdoi, ref List<Phong> phonggiadinh)
         {
             SqlConnection sqlConn = SqlConnectionData.Connect();
             if(sqlConn.State == ConnectionState.Open) { sqlConn.Close(); }
