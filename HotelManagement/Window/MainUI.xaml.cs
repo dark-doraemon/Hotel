@@ -176,6 +176,8 @@ namespace HotelManagement.GUI
         {
             hideStackPannel();
             contentControl.Visibility = Visibility.Collapsed;
+            Button clickedButton = (Button)sender;
+            WhiteBar.Content = clickedButton.Content;
         }
         #endregion
 
